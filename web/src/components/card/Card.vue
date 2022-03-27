@@ -1,0 +1,154 @@
+<template>
+  <div class="card">
+    <div class="imgAndDescription" @click="jump">
+      <div class="img">
+        <img
+          :src="'http://www.dmoe.cc/random.php?time=' + Math.random() * 10"
+          alt=""
+        />
+      </div>
+      <div class="description">
+        <span>{{ item.description }}</span>
+      </div>
+    </div>
+    <div class="content">
+      <div class="title">
+        <span @click="jump">{{ item.title }}</span>
+      </div>
+      <div class="other">
+        <div class="date">
+          <img src="../../assets/img/date.svg" alt="" class="date" />
+          {{ item.time }}
+        </div>
+        <div class="look">
+          <img src="../../assets/img/look.svg" alt="" class="look" />
+          {{ item.NumberOfVisitors }}
+        </div>
+        <div class="taol">
+          <img src="../../assets/img/taol.svg" alt="" class="taol" />
+          {{ item.NumberOfDiscussions }}
+        </div>
+      </div>
+      <div class="category"></div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+import axios from "axios";
+import { useRouter } from "vue-router";
+import getImg from "@/requset/img/getImg";
+import getServer from "@/requset/server/getServer";
+// eslint-disable-next-line no-undef
+const props = defineProps(["item"]);
+const router = useRouter();
+function jump() {
+  router.push(`/main/${props.item._id}`);
+  getServer.put(`/articlesChangeLook/${props.item._id}`, {
+    NumberOfVisitors: props.item.NumberOfVisitors + 1,
+  });
+}
+</script>
+
+<style scoped lang="less">
+.card {
+  width: 300px;
+  height: 350px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+  .imgAndDescription {
+    height: 75%;
+    width: 100%;
+    position: relative;
+    .img {
+      width: 100%;
+      height: 100%;
+      border-top-right-radius: 5px;
+      border-top-left-radius: 5px;
+      overflow: hidden;
+      position: absolute;
+      img {
+        height: 100%;
+        display: inline-block;
+        width: 100%;
+      }
+    }
+    .description {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0);
+      span {
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+        opacity: 0;
+      }
+    }
+  }
+  .imgAndDescription:hover .img img {
+    transform: scale(1.2);
+    transition: all 1s linear;
+  }
+  .imgAndDescription:hover .description {
+    background-color: rgba(0, 0, 0, 0.5);
+    span {
+      opacity: 1;
+    }
+  }
+  .content {
+    width: 100%;
+    height: 25%;
+    background-color: #f3eeee;
+    position: relative;
+    color: rgba(0, 0, 0, 0.5);
+    .title {
+      font-size: 20px;
+      font-weight: bold;
+      padding: 10px;
+    }
+    .title span:hover {
+      color: #d96354;
+    }
+    .other {
+      position: absolute;
+      width: 70%;
+      bottom: 5px;
+      left: 5px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      .look {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+      .taol {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+      .look img {
+        width: 25px;
+        height: 25px;
+        margin-right: 4px;
+      }
+      .taol img {
+        width: 20px;
+        height: 20px;
+        margin-right: 4px;
+      }
+    }
+  }
+}
+.card:hover {
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.3);
+  transition: all 0.5s linear;
+}
+</style>
