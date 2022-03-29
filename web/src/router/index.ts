@@ -1,7 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Cover from "../views/cover/Cover.vue";
-import Main from "../views/main/Main.vue";
-import Home from "../views/main/cpms/Home.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -12,17 +10,22 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/main",
     name: "main",
-    component: Main,
+    component: () => import("../views/main/Main.vue"),
     children: [
       {
         path: "/main",
         name: "home",
-        component: Home,
+        component: () => import("../views/main/cpms/Home.vue"),
       },
       {
-        path: "/main/:id",
+        path: "/main/articles/:id",
         name: "article",
         component: () => import("../views/main/cpms/Article.vue"),
+      },
+      {
+        path: "knowledgeSummary",
+        name: "knowledgeSummary",
+        component: () => import("../views/main/cpms/KnowledgeSummary.vue"),
       },
     ],
   },

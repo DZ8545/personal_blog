@@ -62,6 +62,60 @@ module.exports = (app) => {
     });
   });
 
+  //评论
+  const Comment = require("../../models/comment.js");
+  router.post("/comments", async (req, res) => {
+    if (req.body.parent) {
+      req.body.parent = require("mongoose").Types.ObjectId(req.body.parent);
+    } else {
+      delete req.body.parent;
+    }
+
+    const model = await Comment.create(req.body);
+    res.send(model);
+  });
+  router.get("/comments", async (req, res) => {
+    const items = await Comment.find().limit(10);
+    res.send(items);
+  });
+  router.get("/comments/:id", async (req, res) => {
+    const items = await Comment.aggregate()
+      .lookup({
+        from: "comment",
+        localField: "parent",
+        foreignField: "_id",
+        as: "list",
+      })
+      .match({
+        article: new require("mongoose").Types.ObjectId(req.params.id),
+        parent: undefined,
+      });
+    // const items = await Comment.find({ article: req.params.id, parent: "" });
+    res.send(items);
+  });
+  //获取子评论
+  router.get("/childrenComments/:id", async (req, res) => {
+    const items = await Comment.find({ parent: req.params.id });
+    res.send(items);
+  });
+  //获取评论数
+  router.get("/commentsNumber/:id", async (req, res) => {
+    const items = await Comment.find({ article: req.params.id });
+    res.send(items.length);
+  });
+  router.delete("/comments/:id", async (req, res) => {
+    const items = await Comment.findByIdAndDelete(req.params.id);
+    res.send({
+      success: true,
+    });
+  });
+  router.delete("/commentsAll", async (req, res) => {
+    const items = await Comment.deleteMany({});
+    res.send({
+      success: true,
+    });
+  });
+
   app.use("/admin/api", router);
 
   //上传图片

@@ -15,14 +15,77 @@
         </router-link>
       </div>
       <div class="option">
-        <router-link to="/main" custom v-slot="props">
-          <button @click="props.navigate">首页</button>
-        </router-link>
-        <span>首页</span>
-        <span>首页</span>
-        <span>首页</span>
-        <span>首页</span>
-        <span>首页</span>
+        <ul class="ul1">
+          <li>
+            <router-link to="/main" custom v-slot="props">
+              <span @click="props.navigate">
+                <i class="iconfont icon-shouye"></i>首页
+              </span>
+            </router-link>
+          </li>
+          <li>
+            <i class="iconfont icon-wenzhangfenlei" style="font-size: 20px"></i
+            >文章分类
+            <ul>
+              <li>
+                <router-link to="/main/knowledgeSummary" custom v-slot="props">
+                  <span @click="props.navigate">知识总结</span>
+                </router-link>
+              </li>
+              <li>
+                <router-link to="/main/knowledgeSummary" custom v-slot="props">
+                  <span @click="props.navigate">学习笔记</span>
+                </router-link>
+              </li>
+              <li>
+                <router-link to="/main" custom v-slot="props">
+                  <span @click="props.navigate">代码分享</span>
+                </router-link>
+              </li>
+              <li>
+                <router-link to="/main" custom v-slot="props">
+                  <span @click="props.navigate">随笔</span>
+                </router-link>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <i class="iconfont icon-jilu"></i>记录
+            <ul>
+              <li>
+                <router-link to="/main" custom v-slot="props">
+                  <span @click="props.navigate">总结</span>
+                </router-link>
+              </li>
+              <li>
+                <router-link to="/main" custom v-slot="props">
+                  <span @click="props.navigate">小站记录</span>
+                </router-link>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <router-link to="/main" custom v-slot="props">
+              <span @click="props.navigate"
+                ><i class="iconfont icon-liuyanban-05"></i>留言板</span
+              >
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/main" custom v-slot="props">
+              <span @click="props.navigate"
+                ><i class="iconfont icon-lianjie"></i>友链</span
+              >
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/main" custom v-slot="props">
+              <span @click="props.navigate"
+                ><i class="iconfont icon-guanyuwomen"></i>关于</span
+              >
+            </router-link>
+          </li>
+        </ul>
       </div>
     </div>
     <Music></Music>
@@ -135,16 +198,58 @@ import Music from "@/components/music/Music";
       color: #de1515;
     }
     .option {
-      width: 30%;
       position: absolute;
       right: 18%;
       height: 100%;
       display: flex;
-      justify-content: space-around;
-      align-items: center;
-      button {
-        border: none;
-        background-color: inherit;
+      ul {
+        height: 100%;
+        list-style: none;
+        display: flex;
+        li {
+          line-height: 80px;
+          position: relative;
+          font-size: 18px;
+          color: rgba(0, 0, 0, 0.5);
+          background-color: inherit;
+          cursor: pointer;
+          ul {
+            position: absolute;
+            list-style: none;
+            opacity: 0;
+            height: 0;
+            z-index: 999;
+            display: none;
+            background-color: rgba(252, 252, 252, 0.6);
+            overflow: hidden;
+            li {
+              height: 40px;
+              line-height: 40px;
+              padding-left: 8px;
+              span {
+                display: block;
+              }
+            }
+            li:hover span {
+              color: #d96354;
+              transform: translateX(8px);
+              transition: all 1s ease;
+            }
+          }
+        }
+        li:hover {
+          color: #d96354;
+        }
+      }
+      ul > li:hover ul {
+        display: block;
+        opacity: 1;
+        transition: all 1s ease;
+        height: auto;
+        width: 130px;
+      }
+      .ul1 > li {
+        padding: 0 10px;
       }
     }
   }

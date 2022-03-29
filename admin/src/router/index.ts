@@ -4,6 +4,7 @@ import CategoryEdit from "../views/category/CategoryEdit.vue";
 import CategoryList from "../views/category/CategoryList.vue";
 import ArticleEdit from "../views/article/ArticleEdit.vue";
 import ArticleList from "../views/article/ArticleList.vue";
+import CommentList from "../views/comment/CommentList.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -36,6 +37,10 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/article/list",
         component: ArticleList,
+      },
+      {
+        path: "/comment/list",
+        component: CommentList,
       },
     ],
   },

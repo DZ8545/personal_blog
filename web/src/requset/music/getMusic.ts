@@ -4,4 +4,6 @@ const instance = axios.create({
   timeout: 5000,
 });
 // export default instance.get("/rand.music?sort=热歌榜&format=json");
-export default instance.get("/rand.music?format=json");
+export default instance.get(
+  `/rand.music?format=json&time=` + Math.random() * 10
+);

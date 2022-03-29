@@ -1,5 +1,13 @@
 <template>
-  <div class="home">
+  <div class="knowledgeSummary">
+    <div class="title">
+      <div>
+        <h1>知识总结</h1>
+      </div>
+      <div>
+        <p>善于总结，善于进步</p>
+      </div>
+    </div>
     <card-container :articles="articles"></card-container>
   </div>
 </template>
@@ -18,8 +26,17 @@ fetch();
 </script>
 
 <style scoped lang="less">
-.home {
+.knowledgeSummary {
   max-width: 960px;
   margin: 0 auto;
+  .title {
+    text-align: center;
+    margin: 20px;
+    p {
+      margin-top: 10px;
+      margin-left: 300px;
+      color: rgba(0, 0, 0, 0.5);
+    }
+  }
 }
 </style>

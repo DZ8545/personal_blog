@@ -17,13 +17,14 @@
           </div>
           <div class="taol">
             <img src="@/assets/img/taol.svg" alt="" class="taol" />
-            {{ article.NumberOfDiscussions }}
+            {{ $store.state.comment.commentNumber }}
           </div>
         </div>
       </div>
       <div class="body" v-html="text"></div>
       <div class="foot">
         <comment></comment>
+        <div style="height: 200px"></div>
       </div>
     </div>
     <div class="right"></div>
@@ -35,34 +36,33 @@ import { ref } from "vue";
 import getServer from "@/requset/server/getServer";
 import { useRoute } from "vue-router";
 import { marked } from "marked";
+import { useStore } from "vuex";
 import Comment from "@/components/comment/Comment";
 const route = useRoute();
 const id = route.params.id;
 const article = ref([]);
 const text = ref(null);
-
+const store = useStore();
+const numberOfDiscussions = ref(0);
 async function fetch() {
   const res = await getServer.get(`/articles/${id}`);
   article.value = res.data;
 }
 fetch().then((res) => {
-  console.log(article.value.body);
-  text.value = marked(article.value.body || "", { sanitize: true });
-  console.log(text.value);
+  text.value = marked(article.value.body || "", {
+    sanitize: true,
+  });
 });
+store.dispatch("comment/getCommentNumber", id);
 </script>
 
 <style scoped lang="less">
 .article {
-  width: 100%;
-  height: 100%;
+  max-width: 700px;
+  margin: 0 auto;
   display: flex;
-  .left {
-    width: 25%;
-    height: 100%;
-  }
   .content {
-    width: 50%;
+    width: 100%;
     height: 100%;
     .head {
       position: relative;

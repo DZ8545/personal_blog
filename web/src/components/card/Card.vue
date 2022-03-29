@@ -3,6 +3,7 @@
     <div class="imgAndDescription" @click="jump">
       <div class="img">
         <img
+          style="object-fit: cover"
           :src="'http://www.dmoe.cc/random.php?time=' + Math.random() * 10"
           alt=""
         />
@@ -26,7 +27,7 @@
         </div>
         <div class="taol">
           <img src="../../assets/img/taol.svg" alt="" class="taol" />
-          {{ item.NumberOfDiscussions }}
+          {{ numberOfDiscussions }}
         </div>
       </div>
       <div class="category"></div>
@@ -38,17 +39,25 @@
 import { ref } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 import getImg from "@/requset/img/getImg";
 import getServer from "@/requset/server/getServer";
 // eslint-disable-next-line no-undef
 const props = defineProps(["item"]);
 const router = useRouter();
+const store = useStore();
+const numberOfDiscussions = ref(0);
 function jump() {
-  router.push(`/main/${props.item._id}`);
+  router.push(`/main/articles/${props.item._id}`);
   getServer.put(`/articlesChangeLook/${props.item._id}`, {
     NumberOfVisitors: props.item.NumberOfVisitors + 1,
   });
 }
+async function getNumber() {
+  const res = await getServer.get(`/commentsNumber/${props.item._id}`);
+  numberOfDiscussions.value = res.data;
+}
+getNumber();
 </script>
 
 <style scoped lang="less">

@@ -11,6 +11,10 @@
         <span>{{ item.time }}</span>
       </div>
       <div class="remark">
+        <span v-if="item.recipient" style="color: #feb8b0">
+          {{ item.recipient }}
+        </span>
+        <span v-if="item.recipient"> , </span>
         <span>{{ item.remark }}</span>
       </div>
       <div class="reply" v-if="isReplyExistence">
@@ -19,27 +23,32 @@
 
       <release
         :name="'@' + item.name"
+        :parentId="item.parent || item._id"
         v-if="isExistence"
         @cancel="cancel"
         :flag="true"
+        class="child"
       ></release>
-      <comment-card
-        v-for="j of item.children"
-        :key="j"
-        :item="j"
-      ></comment-card>
+      <template v-if="!item.parent">
+        <comment-card v-for="j of children" :key="j" :item="j"></comment-card>
+      </template>
       <slot name="line"></slot>
     </div>
   </div>
 </template>
 
 <script setup>
+//$store.state.comment.childrenCommentList
 import { ref } from "vue";
+import { useStore } from "vuex";
 import Release from "@/components/comment/Release";
+import getServer from "@/requset/server/getServer";
 // eslint-disable-next-line no-undef
-defineProps(["item"]);
+const props = defineProps(["item"]);
+const store = useStore();
 const isExistence = ref(false);
 const isReplyExistence = ref(true);
+const children = ref([]);
 function cancel() {
   isExistence.value = false;
   isReplyExistence.value = true;
@@ -47,6 +56,14 @@ function cancel() {
 function replyClick() {
   isExistence.value = !isExistence.value;
   isReplyExistence.value = false;
+}
+async function fetchChildren() {
+  const res = await getServer.get(`/childrenComments/${props.item._id}`);
+  children.value = res.data;
+}
+if (!props.item.parent) {
+  fetchChildren();
+  // store.dispatch("comment/getChildrenCommentList", props.item._id);
 }
 </script>
 
@@ -89,6 +106,9 @@ function replyClick() {
         border-color: rgba(0, 0, 0, 0.2);
       }
     }
+  }
+  .child {
+    transform: scale(0.9) translateX(-40px);
   }
 }
 </style>

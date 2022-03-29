@@ -1,6 +1,6 @@
 <template>
   <div class="music" @click="musicClick">
-    <audio :src="music.url" autoplay ref="musicPlayer" @onended="end"></audio>
+    <audio :src="music.url" autoplay ref="musicPlayer" @ended="end"></audio>
     <img
       src="../../assets/img/music_active.svg"
       class="musicActive"
@@ -26,7 +26,7 @@ async function fetch() {
   const res = await getMusic;
   music.value = res.data.data;
   musics.value.push(music.value);
-  console.log(musics.value[currentIndex.value]);
+  // console.log(musics.value[currentIndex.value]);
   // console.log(music.value);
 }
 function musicClick() {

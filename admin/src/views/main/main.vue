@@ -20,6 +20,10 @@
               <el-menu-item index="/article/create">新建文章</el-menu-item>
               <el-menu-item index="/article/list">文章列表</el-menu-item>
             </el-menu-item-group>
+            <el-menu-item-group>
+              <template #title>评论</template>
+              <el-menu-item index="/comment/list">评论列表</el-menu-item>
+            </el-menu-item-group>
           </el-sub-menu>
         </el-menu>
       </el-scrollbar>

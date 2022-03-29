@@ -2,8 +2,13 @@
   <div class="release">
     <div class="input">
       <div class="box1">
-        <input type="text" placeholder="昵称(QQ号)" />
-        <input type="email" placeholder="邮箱" />
+        <input
+          type="text"
+          placeholder="昵称(QQ号)"
+          @blur="qqCheck"
+          v-model="number"
+        />
+        <input type="email" placeholder="邮箱" v-model="mail" />
         <input type="url" placeholder="网址" />
         <button class="cancel" @click="$emit('cancel')" v-if="flag">X</button>
       </div>
@@ -37,7 +42,7 @@
         </div>
       </div>
       <div class="box4">
-        <button class="submit">提交</button>
+        <button class="submit" @click="save">提交</button>
       </div>
       <div class="box5" v-if="isActive_express">
         <div class="emotionText"></div>
@@ -51,12 +56,30 @@
 
 <script setup>
 import { ref } from "vue";
-
+import getqq from "@/requset/qq/getqq";
+import getServer from "@/requset/server/getServer";
+import { useStore } from "vuex";
+import { useRoute } from "vue-router";
+import { ElMessage } from "element-plus";
 // eslint-disable-next-line no-undef
-defineProps(["name", "flag"]);
+const props = defineProps(["name", "flag", "parentId"]);
+const store = useStore();
+const route = useRoute();
 const isActive_preview = ref(false);
 const isActive_express = ref(false);
 const words = ref("");
+const number = ref(null);
+const mail = ref("");
+const comment = ref({
+  article: "",
+  name: "",
+  headImg: "",
+  mail: "",
+  time: "",
+  remark: "",
+  recipient: "",
+  parent: "",
+});
 const expressClick = () => {
   isActive_express.value = !isActive_express.value;
   isActive_preview.value = false;
@@ -67,6 +90,41 @@ const previewClick = () => {
 };
 // eslint-disable-next-line no-undef
 defineEmits(["cancel"]);
+async function fetch() {
+  const res = await getqq.get("/", {
+    params: {
+      qq: number.value,
+    },
+  });
+  comment.value.name = res.data.name;
+  comment.value.headImg = res.data.imgurl;
+  comment.value.mail = res.data.mail;
+  mail.value = res.data.mail;
+  number.value = res.data.name;
+}
+function qqCheck() {
+  fetch();
+}
+
+function save() {
+  comment.value.parent = props.parentId || "";
+  comment.value.recipient = props.name;
+  comment.value.article = route.params.id;
+  comment.value.time = new Date(Date.now()).toLocaleString();
+  comment.value.remark = words.value;
+  if (!comment.value.name || !comment.value.remark) {
+    ElMessage({
+      showClose: true,
+      message: "请输入QQ号和内容",
+      type: "error",
+    });
+  } else {
+    store.dispatch("comment/saveComment", comment.value).then((res) => {
+      store.dispatch("comment/getCommentList", route.params.id);
+      store.dispatch("comment/getCommentNumber", route.params.id);
+    });
+  }
+}
 </script>
 
 <style scoped lang="less">
@@ -98,6 +156,7 @@ defineEmits(["cancel"]);
         position: absolute;
         right: 2px;
         top: 5px;
+        padding: 5px;
         background-color: white;
         color: rgba(0, 0, 0, 0.5);
       }
@@ -153,6 +212,7 @@ defineEmits(["cancel"]);
         background-color: white;
         width: 60px;
         height: 30px;
+        color: rgba(0, 0, 0, 0.5);
         border: 1px solid rgba(0, 0, 0, 0.1);
       }
       .submit:hover {
