@@ -25,7 +25,9 @@
       <el-card class="box-card">
         <div class="start">game start</div>
         <div class="links">
-          <a href=""><i class="iconfont icon-github-fill"></i></a>
+          <a href="https://github.com/DZ8545" target="_blank"
+            ><i class="iconfont icon-github-fill"></i
+          ></a>
           <a href=""><i class="iconfont icon-bilibili-line"></i></a>
           <a href=""><i class="iconfont icon-weixin"></i></a>
           <a href=""><i class="iconfont icon-music"></i></a>

@@ -52,7 +52,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { useRouter, useRoute } from "vue-router";
 import { ref, reactive } from "vue";
 import { ElMessage } from "element-plus";
@@ -102,11 +102,21 @@ const toolbars = ref({
   preview: true, // 预览
 });
 const md = ref(null);
-async function imgAdd(pos: any, $file: any) {
+async function imgAdd(pos, file) {
   // 第一步.将图片上传到服务器.
-  var formdata = new FormData();
-  formdata.append("file", $file);
-  const res = await request.post("/upload", formdata);
+  let formdata = new FormData();
+  formdata.append("file", file);
+  const res = await request.post("/upload", formdata).then((response) => {
+    // if (response.data.status === 200) {
+    //   //将请求返回的图片的url返回，且回显到当前编辑器中
+    //   md.value.$img2Url(pos, response.data.url);
+    //   console.log(response.data.url);
+    // } else {
+    //   console.log("上传图片失败");
+    // }
+    md.value.$img2Url(pos, response.data.url);
+    console.log(response.data.url);
+  });
   // md.$img2Url(pos, res.data.url);
 }
 const categories = ref([]);
@@ -140,7 +150,7 @@ const save = async () => {
 const props = defineProps(["id"]);
 
 async function fecth() {
-  const res = await request.get(`/articles/${props.id}`);
+  const res = await request.get(`/article/${props.id}`);
   model.value = res.data;
 }
 async function fecthCategories() {

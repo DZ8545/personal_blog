@@ -30,7 +30,9 @@
         <div style="height: 200px"></div>
       </div>
     </div>
-    <div class="right"></div>
+    <div class="right">
+      <myMenu :menus="menus"></myMenu>
+    </div>
   </div>
 </template>
 
@@ -42,6 +44,7 @@ import { marked } from "marked";
 import { useStore } from "vuex";
 import Comment from "@/components/comment/Comment";
 import hljs from "highlight.js";
+import myMenu from "@/components/menu/Menu";
 
 const route = useRoute();
 const id = route.params.id;
@@ -70,9 +73,26 @@ async function fetch() {
   article.value = res.data;
   text.value = marked.parse(article.value.body); // 将markdown内容解析
 }
+const menus = ref([]);
 fetch().then(() => {
   catalogues.value = [...text.value.matchAll(/<h[12].*>.*<\/h[12].*>/g)];
-  // console.log(catalogues.value);
+  // console.log(catalogues.value[0][0].split("<")[1].split(">")[1]);
+  let i = -1;
+  for (const item of catalogues.value) {
+    const menuItem = {
+      title: "",
+      children: [],
+    };
+    const x = item[0].split("<")[1].split(">");
+    if (x[0].match("h1")) {
+      i++;
+      menuItem.title = x[1];
+      menus.value[i] = menuItem;
+    } else {
+      menuItem.title = x[1];
+      menus.value[i].children.push(menuItem);
+    }
+  }
 });
 
 store.dispatch("comment/getCommentNumber", id);
@@ -80,12 +100,12 @@ store.dispatch("comment/getCommentNumber", id);
 
 <style scoped lang="less">
 .article {
-  max-width: 700px;
-  margin: 0 auto;
+  width: 100%;
+  height: 100%;
   display: flex;
   .content {
-    width: 100%;
-    height: 100%;
+    max-width: 700px;
+    margin: 0 auto;
     .head {
       position: relative;
       border-bottom: 1px dotted rgba(0, 0, 0, 0.8);
@@ -171,7 +191,11 @@ store.dispatch("comment/getCommentNumber", id);
     }
   }
   .right {
-    height: 100%;
+    position: fixed;
+    right: 180px;
+    top: 50%;
+    max-width: 200px;
+    transform: translateY(-54%);
   }
 }
 </style>

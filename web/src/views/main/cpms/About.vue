@@ -27,6 +27,7 @@
         <comment></comment>
       </div>
     </div>
+    <myMenu class="menu" :menus="menus"></myMenu>
   </div>
 </template>
 
@@ -37,6 +38,8 @@ import Comment from "@/components/comment/Comment.vue";
 import { marked } from "marked";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
+import myMenu from "@/components/menu/Menu";
+
 const route = useRoute();
 const id = route.params.id;
 const text = ref(null);
@@ -46,11 +49,29 @@ const numberOfDiscussions = ref(0);
 async function fetch() {
   const res = await getServer.get(`/article/${id}`);
   article.value = res.data;
+  text.value = marked(article.value.body);
 }
-fetch().then((res) => {
-  text.value = marked(article.value.body || "", {
-    sanitize: true,
-  });
+let catalogues = [];
+const menus = ref([]);
+fetch().then(() => {
+  catalogues = [...text.value.matchAll(/<h[12].*>.*<\/h[12].*>/g)];
+  // console.log(catalogues.value[0][0].split("<")[1].split(">")[1]);
+  let i = -1;
+  for (const item of catalogues) {
+    const menuItem = {
+      title: "",
+      children: [],
+    };
+    const x = item[0].split("<")[1].split(">");
+    if (x[0].match("h1")) {
+      i++;
+      menuItem.title = x[1];
+      menus.value[i] = menuItem;
+    } else {
+      menuItem.title = x[1];
+      menus.value[i].children.push(menuItem);
+    }
+  }
 });
 </script>
 
@@ -151,6 +172,13 @@ fetch().then((res) => {
         }
       }
     }
+  }
+  .menu {
+    position: fixed;
+    right: 150px;
+    top: 50%;
+    max-width: 200px;
+    transform: translateY(-54%);
   }
 }
 </style>

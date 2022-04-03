@@ -34,7 +34,28 @@
           {{ numberOfDiscussions }}
         </div>
       </div>
-      <div class="category"></div>
+      <div class="category">
+        <i
+          class="iconfont icon-biji"
+          v-if="item.kind === '6242b4f997ca3f92fa75203a'"
+          title="随笔"
+        ></i>
+        <i
+          class="iconfont icon-zongjie"
+          v-if="item.kind === '6242b4eb97ca3f92fa752036'"
+          title="知识总结"
+        ></i>
+        <i
+          class="iconfont icon-jilu"
+          v-if="item.kind === '624305226f1943d5f6f9dfc9'"
+          title="学习笔记"
+        ></i>
+        <i
+          class="iconfont icon-fenxiang"
+          v-if="item.kind === '6242b4f497ca3f92fa752038'"
+          title="代码分享"
+        ></i>
+      </div>
     </div>
   </div>
 </template>
@@ -155,6 +176,21 @@ getNumber();
         width: 20px;
         height: 20px;
         margin-right: 4px;
+      }
+    }
+    .category {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      right: 15px;
+      bottom: 10px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      i {
+        font-size: 25px;
       }
     }
   }
