@@ -2,11 +2,15 @@
   <div class="card">
     <div class="imgAndDescription" @click="jump">
       <div class="img">
-        <img
-          style="object-fit: cover"
-          :src="'http://www.dmoe.cc/random.php?time=' + Math.random() * 10"
+        <el-image
+          lazy
+          fit="cover"
+          class="elImg"
+          :src="'http://www.dmoe.cc/random.php?time=' + Math.random() * 10000"
           alt=""
         />
+        <!--        樱花：http://www.dmoe.cc/random.php-->
+        <!--        一叶三秋：https://api.ghser.com/random/api.php-->
       </div>
       <div class="description">
         <span>{{ item.description }}</span>
@@ -62,7 +66,7 @@ getNumber();
 
 <style scoped lang="less">
 .card {
-  width: 300px;
+  width: 400px;
   height: 350px;
   border: 2px solid rgba(0, 0, 0, 0.1);
   border-radius: 5px;
@@ -79,10 +83,9 @@ getNumber();
       border-top-left-radius: 5px;
       overflow: hidden;
       position: absolute;
-      img {
-        height: 100%;
-        display: inline-block;
+      .elImg {
         width: 100%;
+        height: 100%;
       }
     }
     .description {
@@ -101,7 +104,7 @@ getNumber();
       }
     }
   }
-  .imgAndDescription:hover .img img {
+  .imgAndDescription:hover .img .elImg {
     transform: scale(1.2);
     transition: all 1s linear;
   }

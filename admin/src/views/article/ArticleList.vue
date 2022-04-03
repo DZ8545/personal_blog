@@ -29,7 +29,7 @@ import { ref } from "vue";
 import { ElMessageBox, ElMessage } from "element-plus";
 const listData = ref([]);
 async function fetch() {
-  const res = await request.get("/articles");
+  const res = await request.get("/articlesAll");
   listData.value = res.data;
 }
 fetch();

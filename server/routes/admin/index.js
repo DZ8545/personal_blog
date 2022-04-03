@@ -33,11 +33,113 @@ module.exports = (app) => {
     const model = await Article.create(req.body);
     res.send(model);
   });
-  router.get("/articles", async (req, res) => {
-    const items = await Article.find().limit(10);
+  router.get("/articles/:skip", async (req, res) => {
+    const items = await Article.find().limit(9).skip(req.params.skip);
+    // .sort({ title: -1 });
     res.send(items);
   });
-  router.get("/articles/:id", async (req, res) => {
+  //search
+  router.get("/articlesSearch", async (req, res) => {
+    const items = await Article.find({
+      title: { $regex: req.query.name, $options: "i" },
+    })
+      .limit(9)
+      .skip(req.query.skip);
+    res.send(items);
+  });
+  router.get("/articlesSearchNumber/:name", async (req, res) => {
+    const items = await Article.find({
+      title: { $regex: req.params.name, $options: "i" },
+    });
+    res.send(items.length);
+  });
+  router.get("/articlesAll", async (req, res) => {
+    const items = await Article.find().sort({ title: -1 });
+    res.send(items);
+  });
+  //获取阅读数
+  router.get("/articlesView", async (req, res) => {
+    const items = await Article.aggregate().group({
+      _id: null,
+      content_sum: {
+        $sum: "$NumberOfVisitors",
+      },
+    });
+    res.send(items);
+  });
+  //获取文章总数
+  router.get("/articlesNumber/:id", async (req, res) => {
+    let items = null;
+    switch (req.params.id) {
+      case "1":
+        items = await Article.find();
+        break;
+      case "2":
+        items = await Article.find({
+          kind: "6242b4f497ca3f92fa752038",
+        });
+        break;
+      case "3":
+        items = await Article.find({
+          kind: "6242b4f997ca3f92fa75203a",
+        });
+        break;
+      case "4":
+        items = await Article.find({
+          kind: "6242b4eb97ca3f92fa752036",
+        });
+        break;
+      case "5":
+        items = await Article.find({
+          kind: "624305226f1943d5f6f9dfc9",
+        });
+        break;
+      default:
+        break;
+    }
+    res.send(items.length);
+  });
+  //获取知识总结分类的文章
+  router.get("/articlesOfKnowledgeSummary/:skip", async (req, res) => {
+    //6242b4eb97ca3f92fa752036
+    const items = await Article.find({
+      kind: "6242b4eb97ca3f92fa752036",
+    })
+      .limit(9)
+      .skip(req.params.skip);
+    res.send(items);
+  });
+  //获取学习笔记分类的文章
+  router.get("/articlesOfStudyNote/:skip", async (req, res) => {
+    //624305226f1943d5f6f9dfc9
+    const items = await Article.find({
+      kind: "624305226f1943d5f6f9dfc9",
+    })
+      .limit(9)
+      .skip(req.params.skip);
+    res.send(items);
+  });
+  //获取代码分享分类的文章
+  router.get("/articlesOfCodeSharing/:skip", async (req, res) => {
+    //6242b4f497ca3f92fa752038
+    const items = await Article.find({
+      kind: "6242b4f497ca3f92fa752038",
+    })
+      .limit(9)
+      .skip(req.params.skip);
+    res.send(items);
+  });
+  //获取随笔分类的文章
+  router.get("/articlesOfInformalEssay/:skip", async (req, res) => {
+    //6242b4f997ca3f92fa75203a
+    const items = await Article.find({
+      kind: "6242b4f997ca3f92fa75203a",
+    })
+      .limit(9)
+      .skip(req.params.skip);
+    res.send(items);
+  });
+  router.get("/article/:id", async (req, res) => {
     const items = await Article.findById(req.params.id);
     res.send(items);
   });
@@ -70,7 +172,6 @@ module.exports = (app) => {
     } else {
       delete req.body.parent;
     }
-
     const model = await Comment.create(req.body);
     res.send(model);
   });
@@ -100,7 +201,12 @@ module.exports = (app) => {
   });
   //获取评论数
   router.get("/commentsNumber/:id", async (req, res) => {
-    const items = await Comment.find({ article: req.params.id });
+    let items = null;
+    if (req.params.id === "1") {
+      items = await Comment.find();
+    } else {
+      items = await Comment.find({ article: req.params.id });
+    }
     res.send(items.length);
   });
   router.delete("/comments/:id", async (req, res) => {

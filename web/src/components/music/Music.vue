@@ -51,10 +51,11 @@ function end() {
 
 <style scoped lang="less">
 .music {
-  position: fixed;
-  top: 150px;
-  left: 100px;
+  position: sticky;
+  top: 120px;
+  left: 20px;
   z-index: 999;
+  display: inline-block;
   span {
     font-size: 12px;
     color: rgba(254, 184, 176, 0.8);

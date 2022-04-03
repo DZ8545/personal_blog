@@ -22,6 +22,9 @@
         </div>
       </div>
       <div class="body" v-html="text"></div>
+      <!--      <div class="body">-->
+      <!--        <v-md-preview :text="text"></v-md-preview>-->
+      <!--      </div>-->
       <div class="foot">
         <comment></comment>
         <div style="height: 200px"></div>
@@ -38,21 +41,40 @@ import { useRoute } from "vue-router";
 import { marked } from "marked";
 import { useStore } from "vuex";
 import Comment from "@/components/comment/Comment";
+import hljs from "highlight.js";
+
 const route = useRoute();
 const id = route.params.id;
 const article = ref([]);
 const text = ref(null);
 const store = useStore();
 const numberOfDiscussions = ref(0);
-async function fetch() {
-  const res = await getServer.get(`/articles/${id}`);
-  article.value = res.data;
-}
-fetch().then((res) => {
-  text.value = marked(article.value.body || "", {
-    sanitize: true,
-  });
+const catalogues = ref([]);
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  highlight: function (code, lang) {
+    const language = hljs.getLanguage(lang) ? lang : "plaintext";
+    return hljs.highlight(code, { language }).value;
+  },
+  langPrefix: "hljs language-", // highlight.js css expects a top-level 'hljs' class.
+  pedantic: false,
+  gfm: true,
+  breaks: true,
+  sanitize: false,
+  smartLists: true,
+  smartypants: false,
+  xhtml: false,
 });
+async function fetch() {
+  const res = await getServer.get(`/article/${id}`);
+  article.value = res.data;
+  text.value = marked.parse(article.value.body); // 将markdown内容解析
+}
+fetch().then(() => {
+  catalogues.value = [...text.value.matchAll(/<h[12].*>.*<\/h[12].*>/g)];
+  // console.log(catalogues.value);
+});
+
 store.dispatch("comment/getCommentNumber", id);
 </script>
 
@@ -104,9 +126,51 @@ store.dispatch("comment/getCommentNumber", id);
       padding-bottom: 30px;
       border-bottom: 1px dotted rgba(0, 0, 0, 0.8);
     }
+    ::v-deep .body {
+      > pre > code {
+        border-radius: 10px;
+      }
+      > p {
+        margin: 10px;
+        text-indent: 2em;
+        font-size: 18px;
+        color: rgba(0, 0, 0, 0.7);
+      }
+      h1 {
+        padding: 5px;
+        font-size: 20px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        margin-bottom: 10px;
+      }
+      h1::before {
+        content: "#";
+        font-size: 20px;
+        color: red;
+      }
+      h2 {
+        padding: 5px;
+        font-size: 19px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        margin-bottom: 10px;
+      }
+      h2::before {
+        content: "##";
+        font-size: 19px;
+        color: red;
+      }
+      ul {
+        margin-left: 80px;
+        > li {
+          margin: 5px 0;
+          font-size: 17px;
+        }
+      }
+      img {
+        max-width: 500px;
+      }
+    }
   }
   .right {
-    width: 25%;
     height: 100%;
   }
 }

@@ -8,6 +8,11 @@ declare module 'vue' {
     CardContainer: typeof import('./src/components/card/CardContainer.vue')['default']
     Comment: typeof import('./src/components/comment/Comment.vue')['default']
     CommentCard: typeof import('./src/components/comment/CommentCard.vue')['default']
+    ElCard: typeof import('element-plus/es')['ElCard']
+    ElImage: typeof import('element-plus/es')['ElImage']
+    ElPagination: typeof import('element-plus/es')['ElPagination']
+    ElTimeline: typeof import('element-plus/es')['ElTimeline']
+    ElTimelineItem: typeof import('element-plus/es')['ElTimelineItem']
     Music: typeof import('./src/components/music/Music.vue')['default']
     Release: typeof import('./src/components/comment/Release.vue')['default']
   }

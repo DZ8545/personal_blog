@@ -1,11 +1,11 @@
 <template>
-  <div class="knowledgeSummary">
+  <div class="studyNote">
     <div class="title">
       <div>
-        <h1>知识总结</h1>
+        <h1>学习笔记</h1>
       </div>
       <div>
-        <p>善于总结，善于进步</p>
+        <p>好记性不如烂笔头</p>
       </div>
     </div>
     <template v-if="articles.toString()">
@@ -35,12 +35,12 @@ const pageSize = ref(9);
 const totalAticlesPages = ref(0);
 async function fetch() {
   const skip = (currentPage.value - 1) * pageSize.value;
-  const res = await getServer.get(`/articlesOfKnowledgeSummary/${skip}`);
+  const res = await getServer.get(`/articlesOfStudyNote/${skip}`);
   articles.value = res.data;
 }
 
 async function fetchNumber() {
-  const res = await getServer.get(`/articlesNumber/4`);
+  const res = await getServer.get(`/articlesNumber/5`);
   totalAticlesPages.value = res.data;
 }
 fetch();
@@ -51,7 +51,7 @@ const handleCurrentChange = (val: number) => {
 </script>
 
 <style scoped lang="less">
-.knowledgeSummary {
+.studyNote {
   display: flex;
   flex-direction: column;
   align-items: center;

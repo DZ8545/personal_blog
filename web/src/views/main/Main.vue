@@ -10,16 +10,17 @@
         <div class="bird" style="left: 110px; top: 60px"></div>
       </div>
       <div class="title">
-        <router-link to="/main" custom v-slot="props">
-          <button class="b1" @click="props.navigate">古月小站</button>
-        </router-link>
+        <!--        <router-link to="/" custom v-slot="props">-->
+        <!--          <span class="b1" @click="props.navigate">古月小站</span>-->
+        <!--        </router-link>-->
+        <span class="b1">古月小站</span>
       </div>
       <div class="option">
         <ul class="ul1">
           <li>
-            <router-link to="/main" custom v-slot="props">
+            <router-link to="/" custom v-slot="props">
               <span @click="props.navigate">
-                <i class="iconfont icon-shouye"></i>首页
+                <i class="iconfont icon-shouye"></i>主页
               </span>
             </router-link>
           </li>
@@ -33,42 +34,38 @@
                 </router-link>
               </li>
               <li>
-                <router-link to="/main/knowledgeSummary" custom v-slot="props">
+                <router-link to="/main/studyNote" custom v-slot="props">
                   <span @click="props.navigate">学习笔记</span>
                 </router-link>
               </li>
               <li>
-                <router-link to="/main" custom v-slot="props">
+                <router-link to="/main/codeSharing" custom v-slot="props">
                   <span @click="props.navigate">代码分享</span>
                 </router-link>
               </li>
               <li>
-                <router-link to="/main" custom v-slot="props">
+                <router-link to="/main/informalEssay" custom v-slot="props">
                   <span @click="props.navigate">随笔</span>
                 </router-link>
               </li>
             </ul>
           </li>
           <li>
-            <i class="iconfont icon-jilu"></i>记录
-            <ul>
-              <li>
-                <router-link to="/main" custom v-slot="props">
-                  <span @click="props.navigate">总结</span>
-                </router-link>
-              </li>
-              <li>
-                <router-link to="/main" custom v-slot="props">
-                  <span @click="props.navigate">小站记录</span>
-                </router-link>
-              </li>
-            </ul>
+            <router-link to="/main/file" custom v-slot="props">
+              <span @click="props.navigate">
+                <i class="iconfont icon-jilu"></i>归档
+              </span>
+            </router-link>
           </li>
           <li>
-            <router-link to="/main" custom v-slot="props">
-              <span @click="props.navigate"
-                ><i class="iconfont icon-liuyanban-05"></i>留言板</span
-              >
+            <router-link
+              to="/main/messageBoard/62445ee429dd310398bc7a93"
+              custom
+              v-slot="props"
+            >
+              <span @click="props.navigate">
+                <i class="iconfont icon-liuyanban-05"></i>留言板
+              </span>
             </router-link>
           </li>
           <li>
@@ -79,35 +76,54 @@
             </router-link>
           </li>
           <li>
-            <router-link to="/main" custom v-slot="props">
+            <router-link
+              to="/main/about/6246ef7e77f7f26b8e5f7820"
+              custom
+              v-slot="props"
+            >
               <span @click="props.navigate"
                 ><i class="iconfont icon-guanyuwomen"></i>关于</span
               >
             </router-link>
           </li>
+          <li>
+            <input
+              type="text"
+              placeholder="搜索..."
+              @keyup.enter="onSubmit"
+            /><i class="iconfont icon-sousuo"></i>
+          </li>
         </ul>
       </div>
     </div>
     <Music></Music>
-    <router-view></router-view>
+    <router-view class="view"></router-view>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import Music from "@/components/music/Music";
+import { useRouter } from "vue-router";
+const router = useRouter();
+function onSubmit(event) {
+  router.push(`/main/search/${event.target.value}`);
+}
 </script>
 
 <style scoped lang="less">
 .main {
   width: 100%;
-  height: 100%;
   .panel {
     width: 100%;
     height: 80px;
     background: linear-gradient(#feb8b0, #fef9db);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    position: relative;
+    position: sticky;
+    display: flex;
+    justify-content: flex-end;
+    top: 0;
+    z-index: 999;
     .sun {
       position: absolute;
       left: 80px;
@@ -181,27 +197,17 @@ import Music from "@/components/music/Music";
     }
     .title {
       position: absolute;
-      left: 18%;
+      left: 250px;
       height: 100%;
-      display: flex;
-      justify-content: center;
       align-items: center;
       .b1 {
-        border: none;
-        background-color: inherit;
+        line-height: 80px;
         color: #d96354;
         font-size: 18px;
       }
     }
-    .title:hover {
-      transform: scale(1.2);
-      color: #de1515;
-    }
     .option {
-      position: absolute;
-      right: 18%;
-      height: 100%;
-      display: flex;
+      position: relative;
       ul {
         height: 100%;
         list-style: none;
@@ -213,6 +219,17 @@ import Music from "@/components/music/Music";
           color: rgba(0, 0, 0, 0.5);
           background-color: inherit;
           cursor: pointer;
+          input {
+            background-color: inherit;
+            border: 1px rgba(0, 0, 0, 0.2) solid;
+            width: 150px;
+            height: 30px;
+            outline: none;
+            border-radius: 15px;
+            padding: 10px;
+            margin-right: 5px;
+            color: rgba(0, 0, 0, 0.5);
+          }
           ul {
             position: absolute;
             list-style: none;
@@ -252,6 +269,9 @@ import Music from "@/components/music/Music";
         padding: 0 10px;
       }
     }
+  }
+  .view {
+    margin-top: -30px;
   }
 }
 </style>

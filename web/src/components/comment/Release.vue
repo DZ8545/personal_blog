@@ -14,7 +14,7 @@
       </div>
       <div class="box2">
         <textarea
-          :placeholder="name || '留下你的足迹...(支持Markdown)'"
+          :placeholder="name || '留下你的足迹...'"
           v-model="words"
         ></textarea>
       </div>

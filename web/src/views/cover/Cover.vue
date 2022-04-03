@@ -21,9 +21,17 @@
     </div>
     <div class="content">
       <div class="title">古月小站</div>
-      <router-link to="/main" custom v-slot="props">
-        <button @click="props.navigate" class="link">点击进入</button>
-      </router-link>
+      <div class="hello" style="height: 23.2px">{{ hello1.join("") }}</div>
+      <el-card class="box-card">
+        <div class="start">game start</div>
+        <div class="links">
+          <a href=""><i class="iconfont icon-github-fill"></i></a>
+          <a href=""><i class="iconfont icon-bilibili-line"></i></a>
+          <a href=""><i class="iconfont icon-weixin"></i></a>
+          <a href=""><i class="iconfont icon-music"></i></a>
+        </div>
+      </el-card>
+      <div class="coverCard"></div>
     </div>
     <div class="earth"></div>
     <div class="house">
@@ -32,6 +40,9 @@
       <div class="main"></div>
       <div class="smoke"></div>
       <div class="window"></div>
+    </div>
+    <div class="arrowContain">
+      <div class="arrow"></div>
     </div>
   </div>
 </template>
@@ -43,6 +54,7 @@ const poetry = ref([]);
 const flags = ref([]);
 const count = ref([]);
 const s = ref(0);
+const hello = ref("欢迎你的到来，希望你能有所收获");
 getPoetry.then((res) => {
   poetry.value = res.data.content.split(/[。、？，！；]/);
   poetry.value[poetry.value.length - 1] = res.data.author;
@@ -59,6 +71,24 @@ getPoetry.then((res) => {
     }
   }, 500);
 });
+const hello1 = ref([]);
+let i = 0,
+  f = true;
+setInterval(() => {
+  if (f) {
+    hello1.value[i] = hello.value[i];
+    i++;
+    if (i === hello.value.length) {
+      f = false;
+    }
+  } else {
+    hello1.value.splice(i, 1);
+    i--;
+    if (i === -1) {
+      f = true;
+    }
+  }
+}, 500);
 </script>
 
 <style scoped lang="less">
@@ -72,7 +102,7 @@ getPoetry.then((res) => {
   background: linear-gradient(#feb8b0, #fef9db);
   position: relative;
   .poetry {
-    position: fixed;
+    position: absolute;
     display: flex;
     flex-direction: row-reverse;
     right: 50px;
@@ -102,13 +132,6 @@ getPoetry.then((res) => {
   .poetry > :nth-last-child(1) {
     margin-top: 30px;
   }
-  //.poetry > :nth-child(2) {
-  //  margin-top: 30px;
-  //}
-  //.poetry > :nth-child(n + 3) {
-  //  margin-top: 60px;
-  //}
-
   .content {
     display: flex;
     flex-direction: column;
@@ -116,10 +139,68 @@ getPoetry.then((res) => {
     align-items: center;
     color: #e05f4f;
     font-family: "宋体", serif;
+    .box-card {
+      background-color: inherit;
+      width: 300px;
+      text-align: center;
+      .start {
+        font-size: 20px;
+        color: #d05555;
+        position: relative;
+      }
+      .start::before {
+        content: "“";
+        font-size: 30px;
+        position: absolute;
+        left: 10px;
+        top: -10px;
+        color: black;
+      }
+      .start::after {
+        content: "”";
+        font-size: 30px;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        color: white;
+      }
+      .links {
+        width: 140px;
+        margin: 10px auto 0 auto;
+        display: flex;
+        justify-content: space-around;
+        a {
+          text-decoration: none;
+          color: black;
+        }
+        i {
+          font-size: 25px;
+        }
+        i:hover {
+          cursor: pointer;
+        }
+      }
+    }
     .title {
       font-weight: bolder;
       font-size: 30px;
       margin-bottom: 10px;
+    }
+    .hello {
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+    .hello::after {
+      content: "|";
+      animation: j 0.5s ease infinite;
+    }
+    @keyframes j {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
     }
     .link {
       border: none;
@@ -296,6 +377,27 @@ getPoetry.then((res) => {
       position: absolute;
       margin-left: 150px;
       margin-top: 20px;
+    }
+  }
+  .arrowContain {
+    position: absolute;
+    bottom: 80px;
+    .arrow {
+      width: 25px;
+      height: 25px;
+      border-top: 5px solid white;
+      border-right: 5px solid white;
+      transform: rotate(135deg);
+    }
+    animation: arrowF 0.5s linear alternate-reverse infinite;
+  }
+  @keyframes arrowF {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.5;
+      transform: translateY(30px);
     }
   }
 }

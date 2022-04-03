@@ -2,10 +2,10 @@
   <div class="knowledgeSummary">
     <div class="title">
       <div>
-        <h1>知识总结</h1>
+        <h1>代码分享</h1>
       </div>
       <div>
-        <p>善于总结，善于进步</p>
+        <p>善于分享，善于进步</p>
       </div>
     </div>
     <template v-if="articles.toString()">
@@ -35,12 +35,12 @@ const pageSize = ref(9);
 const totalAticlesPages = ref(0);
 async function fetch() {
   const skip = (currentPage.value - 1) * pageSize.value;
-  const res = await getServer.get(`/articlesOfKnowledgeSummary/${skip}`);
+  const res = await getServer.get(`/articlesOfCodeSharing/${skip}`);
   articles.value = res.data;
 }
 
 async function fetchNumber() {
-  const res = await getServer.get(`/articlesNumber/4`);
+  const res = await getServer.get(`/articlesNumber/2`);
   totalAticlesPages.value = res.data;
 }
 fetch();

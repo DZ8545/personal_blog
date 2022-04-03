@@ -2,10 +2,10 @@
   <div class="knowledgeSummary">
     <div class="title">
       <div>
-        <h1>知识总结</h1>
+        <h1>{{ $route.params.name }}</h1>
       </div>
       <div>
-        <p>善于总结，善于进步</p>
+        <p>搜索</p>
       </div>
     </div>
     <template v-if="articles.toString()">
@@ -28,19 +28,24 @@
 import CardContainer from "@/components/card/CardContainer.vue";
 import getServer from "@/requset/server/getServer";
 import { ref } from "vue";
-
+import { useRoute } from "vue-router";
+const route = useRoute();
 const articles = ref([]);
 const currentPage = ref(1);
 const pageSize = ref(9);
 const totalAticlesPages = ref(0);
 async function fetch() {
   const skip = (currentPage.value - 1) * pageSize.value;
-  const res = await getServer.get(`/articlesOfKnowledgeSummary/${skip}`);
+  const res = await getServer.get(`/articlesSearch`, {
+    params: {
+      name: route.params.name,
+      skip: skip,
+    },
+  });
   articles.value = res.data;
 }
-
 async function fetchNumber() {
-  const res = await getServer.get(`/articlesNumber/4`);
+  const res = await getServer.get(`/articlesSearchNumber/${route.params.name}`);
   totalAticlesPages.value = res.data;
 }
 fetch();

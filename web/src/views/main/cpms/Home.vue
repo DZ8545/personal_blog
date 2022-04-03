@@ -1,25 +1,52 @@
 <template>
   <div class="home">
     <card-container :articles="articles"></card-container>
+    <div class="demo-pagination-block">
+      <el-pagination
+        v-model:currentPage="currentPage"
+        v-model:page-size="pageSize"
+        layout="prev, pager, next, jumper"
+        :total="totalAticlesPages"
+        @current-change="handleCurrentChange"
+      />
+    </div>
   </div>
 </template>
 
-<script setup>
-import CardContainer from "@/components/card/CardContainer";
+<script setup lang="ts">
+import CardContainer from "@/components/card/CardContainer.vue";
 import getServer from "@/requset/server/getServer";
 import { ref } from "vue";
 
 const articles = ref([]);
+const currentPage = ref(1);
+const pageSize = ref(9);
+const totalAticlesPages = ref(0);
 async function fetch() {
-  const res = await getServer.get("/articles");
+  const skip = (currentPage.value - 1) * pageSize.value;
+  const res = await getServer.get(`/articles/${skip}`);
   articles.value = res.data;
 }
+async function fetchNumber() {
+  const res = await getServer.get("/articlesNumber/1");
+  totalAticlesPages.value = res.data;
+}
 fetch();
+fetchNumber();
+const handleCurrentChange = (val: number) => {
+  fetch();
+};
 </script>
 
 <style scoped lang="less">
 .home {
-  max-width: 960px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .demo-pagination-block {
+    margin-top: 20px;
+    margin-bottom: 50px;
+  }
 }
 </style>

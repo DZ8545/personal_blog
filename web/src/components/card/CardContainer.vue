@@ -12,6 +12,8 @@ defineProps(["articles"]);
 
 <style scoped lang="less">
 .cardContainer {
+  max-width: 1260px;
+  margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
   .card {

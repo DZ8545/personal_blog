@@ -1,6 +1,6 @@
 <template>
   <div class="edit">
-    <h2>{{ id ? "编辑" : "创建" }}分类</h2>
+    <h2>{{ id ? "编辑" : "创建" }}文章</h2>
     <el-form label-width="120px">
       <el-form-item label="大分类">
         <el-select
