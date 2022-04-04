@@ -5,7 +5,6 @@
       :src="musics[currentIndex].url"
       ref="musicPlayer"
       @ended="end"
-      controls
       autoplay
     ></audio>
     <template v-if="isActive">
