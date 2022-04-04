@@ -36,44 +36,47 @@
           {{ numberOfDiscussions }}
         </div>
       </div>
-      <div class="category">
-        <i
-          class="iconfont icon-biji"
-          v-if="item.kind === '6242b4f997ca3f92fa75203a'"
-          title="随笔"
-        ></i>
-        <i
-          class="iconfont icon-zongjie"
-          v-if="item.kind === '6242b4eb97ca3f92fa752036'"
-          title="知识总结"
-        ></i>
-        <i
-          class="iconfont icon-jilu"
-          v-if="item.kind === '624305226f1943d5f6f9dfc9'"
-          title="学习笔记"
-        ></i>
-        <i
-          class="iconfont icon-fenxiang"
-          v-if="item.kind === '6242b4f497ca3f92fa752038'"
-          title="代码分享"
-        ></i>
-      </div>
+      <el-tooltip :content="type" placement="top" effect="light">
+        <div class="category">
+          <i
+            class="iconfont icon-biji"
+            v-if="item.kind === '6242b4f997ca3f92fa75203a'"
+            @click="$router.push('/main/informalEssay')"
+          ></i>
+          <i
+            class="iconfont icon-zongjie"
+            v-if="item.kind === '6242b4eb97ca3f92fa752036'"
+            @click="$router.push('/main/knowledgeSummary')"
+          ></i>
+          <i
+            class="iconfont icon-jilu"
+            v-if="item.kind === '624305226f1943d5f6f9dfc9'"
+            @click="$router.push('/main/studyNote')"
+          ></i>
+          <i
+            class="iconfont icon-fenxiang"
+            v-if="item.kind === '6242b4f497ca3f92fa752038'"
+            @click="$router.push('/main/codeSharing')"
+          ></i>
+        </div>
+      </el-tooltip>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
-import axios from "axios";
+
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import getImg from "@/requset/img/getImg";
+
 import getServer from "@/requset/server/getServer";
 // eslint-disable-next-line no-undef
 const props = defineProps(["item"]);
 const router = useRouter();
-const store = useStore();
+
 const numberOfDiscussions = ref(0);
+const type = ref("");
 function jump() {
   router.push(`/main/articles/${props.item._id}`);
   getServer.put(`/articlesChangeLook/${props.item._id}`, {
@@ -85,6 +88,22 @@ async function getNumber() {
   numberOfDiscussions.value = res.data;
 }
 getNumber();
+switch (props.item.kind) {
+  case "6242b4f997ca3f92fa75203a":
+    type.value = "随笔";
+    break;
+  case "6242b4eb97ca3f92fa752036":
+    type.value = "知识总结";
+    break;
+  case "624305226f1943d5f6f9dfc9":
+    type.value = "学习笔记";
+    break;
+  case "6242b4f497ca3f92fa752038":
+    type.value = "代码分享";
+    break;
+  default:
+    break;
+}
 </script>
 
 <style scoped lang="less">
@@ -193,6 +212,7 @@ getNumber();
       align-items: center;
       i {
         font-size: 25px;
+        cursor: url("../../assets/cursor/cursor.f19acf76.cur"), auto;
       }
     }
   }

@@ -57,7 +57,7 @@
 <script setup>
 import { ref } from "vue";
 import getqq from "@/requset/qq/getqq";
-import getServer from "@/requset/server/getServer";
+
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import { ElMessage } from "element-plus";
@@ -119,7 +119,7 @@ function save() {
       type: "error",
     });
   } else {
-    store.dispatch("comment/saveComment", comment.value).then((res) => {
+    store.dispatch("comment/saveComment", comment.value).then(() => {
       store.dispatch("comment/getCommentList", route.params.id);
       store.dispatch("comment/getCommentNumber", route.params.id);
     });

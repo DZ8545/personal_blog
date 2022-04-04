@@ -20,10 +20,9 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
 import CommentCard from "./CommentCard.vue";
 import Release from "@/components/comment/Release";
-import getServer from "@/requset/server/getServer";
+
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 const store = useStore();

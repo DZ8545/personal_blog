@@ -45,7 +45,7 @@ import Release from "@/components/comment/Release";
 import getServer from "@/requset/server/getServer";
 // eslint-disable-next-line no-undef
 const props = defineProps(["item"]);
-const store = useStore();
+
 const isExistence = ref(false);
 const isReplyExistence = ref(true);
 const children = ref([]);

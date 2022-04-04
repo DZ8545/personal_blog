@@ -36,7 +36,7 @@ const model: Module<ICommentTypes, any> = {
       context.commit("setCommentNumber", res.data);
     },
     async saveComment(context, payload) {
-      const res = await getServer.post("/comments", payload);
+      await getServer.post("/comments", payload);
     },
   },
 };

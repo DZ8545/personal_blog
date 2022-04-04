@@ -5,6 +5,7 @@
       :src="musics[currentIndex].url"
       ref="musicPlayer"
       @ended="end"
+      controls
       autoplay
     ></audio>
     <template v-if="isActive">
@@ -46,8 +47,7 @@
 <script setup>
 import { ref } from "vue";
 import getMusic from "@/requset/music/getMusic";
-import axios from "axios";
-const show = ref(true);
+
 const isActive = ref(false);
 const musics = ref([]);
 const currentIndex = ref(-1);
@@ -84,11 +84,15 @@ async function musicClick() {
     musicPlayer.value.pause();
   }
 }
-function end() {
-  musicPlayer.value.pause();
-  fetch().then((res) => {
+async function end() {
+  if (currentIndex.value === musics.value.length - 1) {
+    musicPlayer.value.pause();
+    await fetch();
     musicPlayer.value.play();
-  });
+  } else {
+    currentIndex.value++;
+    musicPlayer.value.src = musics.value[currentIndex.value].url;
+  }
 }
 async function nextMusic() {
   if (currentIndex.value === musics.value.length - 1) {
