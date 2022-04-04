@@ -24,9 +24,6 @@ interface Tree {
 // eslint-disable-next-line no-undef
 const props = defineProps(["menus"]);
 const handleNodeClick = (data: Tree) => {
-  console.log(
-    document.getElementById(data.title.toLowerCase())!.offsetTop + 100
-  );
   window.scrollTo({
     top: document.getElementById(data.title.toLowerCase())!.offsetTop - 100,
     behavior: "smooth",
