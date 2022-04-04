@@ -64,7 +64,7 @@ const model = ref({
   categories: [],
   kind: "",
   body: "",
-  time: "",
+  time: Number,
 });
 const toolbars = ref({
   bold: true, // 粗体
@@ -122,7 +122,7 @@ async function imgAdd(pos, file) {
 const categories = ref([]);
 const router = useRouter();
 const save = async () => {
-  model.value.time = new Date(Date.now()).toLocaleDateString();
+  model.value.time = Date.now();
   if (model.value.title) {
     if (props.id) {
       await request.put(`/articles/${props.id}`, model.value);

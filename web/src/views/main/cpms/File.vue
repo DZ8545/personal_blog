@@ -5,7 +5,7 @@
         <h1>归档</h1>
       </div>
       <div>
-        <p>善于分享，善于进步</p>
+        <p>回望过去，展望未来</p>
       </div>
     </div>
     <div class="statistic">
@@ -40,7 +40,10 @@
         </template>
         <el-timeline>
           <template v-for="article in articles" :key="article">
-            <el-timeline-item :timestamp="article.time" placement="top">
+            <el-timeline-item
+              :timestamp="new Date(article.time).toLocaleString()"
+              placement="top"
+            >
               <el-card class="elCard">
                 <router-link to="/"></router-link>
                 <h4
@@ -147,7 +150,7 @@ fetch();
       }
       h4:hover {
         color: red;
-        transform: translateX(10px) scale(1.2);
+        transform: translateX(10px);
         transition: all 1s ease;
         cursor: pointer;
       }

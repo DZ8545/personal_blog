@@ -62,6 +62,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/main/cpms/About.vue"),
       },
       {
+        path: "friends",
+        name: "friends",
+        component: () => import("../views/main/cpms/Friends.vue"),
+      },
+      {
         path: "search/:name",
         name: "search",
         component: () => import("../views/main/cpms/Search.vue"),

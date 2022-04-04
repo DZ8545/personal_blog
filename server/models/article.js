@@ -9,9 +9,8 @@ const schema = new mongoose.Schema({
       ref: "Category",
     },
   ],
-  time: { type: String },
+  time: { type: Number },
   NumberOfVisitors: { type: Number, default: 0 }, //浏览人数
-  NumberOfDiscussions: { type: Number, default: 0 }, //讨论人数
   body: { type: String },
 });
 module.exports = mongoose.model("Article", schema);

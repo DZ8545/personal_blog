@@ -9,7 +9,7 @@
         <div class="other">
           <div class="date">
             <img src="@/assets/img/date.svg" alt="" class="date" />
-            {{ article.time }}
+            {{ new Date(article.time).toLocaleDateString() }}
           </div>
           <div class="look">
             <img src="@/assets/img/look.svg" alt="" class="look" />
@@ -18,6 +18,9 @@
           <div class="taol">
             <img src="@/assets/img/taol.svg" alt="" class="taol" />
             {{ $store.state.comment.commentNumber }}
+          </div>
+          <div class="time">
+            {{ new Date(article.time).toLocaleTimeString() }}
           </div>
         </div>
       </div>
@@ -117,6 +120,7 @@ store.dispatch("comment/getCommentNumber", id);
         margin-left: 30px;
         display: flex;
         flex-wrap: nowrap;
+        position: relative;
         .look {
           margin-left: 10px;
           display: flex;
@@ -138,6 +142,13 @@ store.dispatch("comment/getCommentNumber", id);
           width: 20px;
           height: 20px;
           margin-right: 4px;
+        }
+        .time {
+          color: rgba(0, 0, 0, 0.5);
+          position: absolute;
+          right: 15px;
+          font-size: 12px;
+          bottom: 3px;
         }
       }
     }

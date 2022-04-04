@@ -54,7 +54,7 @@ module.exports = (app) => {
     res.send(items.length);
   });
   router.get("/articlesAll", async (req, res) => {
-    const items = await Article.find().sort({ title: -1 });
+    const items = await Article.find().sort({ time: 1 });
     res.send(items);
   });
   //获取阅读数

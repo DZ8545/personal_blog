@@ -9,6 +9,8 @@
           :src="'http://www.dmoe.cc/random.php?time=' + Math.random() * 10000"
           alt=""
         />
+        <!--        <img src="https://tenapi.cn/acg">-->
+
         <!--        樱花：http://www.dmoe.cc/random.php-->
         <!--        一叶三秋：https://api.ghser.com/random/api.php-->
       </div>
@@ -23,7 +25,7 @@
       <div class="other">
         <div class="date">
           <img src="../../assets/img/date.svg" alt="" class="date" />
-          {{ item.time }}
+          {{ new Date(item.time).toLocaleDateString() }}
         </div>
         <div class="look">
           <img src="../../assets/img/look.svg" alt="" class="look" />

@@ -68,13 +68,13 @@
               </span>
             </router-link>
           </li>
-          <li>
-            <router-link to="/main" custom v-slot="props">
-              <span @click="props.navigate"
-                ><i class="iconfont icon-lianjie"></i>友链</span
-              >
-            </router-link>
-          </li>
+          <!--          <li>-->
+          <!--            <router-link to="/main/friends" custom v-slot="props">-->
+          <!--              <span @click="props.navigate"-->
+          <!--                ><i class="iconfont icon-lianjie"></i>友链</span-->
+          <!--              >-->
+          <!--            </router-link>-->
+          <!--          </li>-->
           <li>
             <router-link
               to="/main/about/6246ef7e77f7f26b8e5f7820"

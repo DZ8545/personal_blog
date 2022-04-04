@@ -28,9 +28,17 @@
           <a href="https://github.com/DZ8545" target="_blank"
             ><i class="iconfont icon-github-fill"></i
           ></a>
-          <a href=""><i class="iconfont icon-bilibili-line"></i></a>
+          <a
+            href="https://space.bilibili.com/354550170?spm_id_from=333.337.0.0"
+            target="_blank"
+            ><i class="iconfont icon-bilibili-line"></i
+          ></a>
           <a href=""><i class="iconfont icon-weixin"></i></a>
-          <a href=""><i class="iconfont icon-music"></i></a>
+          <a
+            href="https://music.163.com/#/user/home?id=1878740676"
+            target="_blank"
+            ><i class="iconfont icon-music"></i
+          ></a>
         </div>
       </el-card>
       <div class="coverCard"></div>
