@@ -96,7 +96,6 @@
         </ul>
       </div>
     </div>
-    <Music></Music>
     <router-view class="view"></router-view>
   </div>
 </template>
@@ -269,9 +268,6 @@ function onSubmit(event) {
         padding: 0 10px;
       }
     }
-  }
-  .view {
-    margin-top: -30px;
   }
 }
 </style>

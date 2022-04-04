@@ -114,10 +114,10 @@ async function preMusic() {
 
 <style scoped lang="less">
 .music {
-  position: sticky;
+  position: fixed;
   top: 120px;
   left: 20px;
-  z-index: 999;
+  z-index: 10;
   display: inline-block;
   font-size: 12px;
   color: rgba(254, 184, 176, 0.8);

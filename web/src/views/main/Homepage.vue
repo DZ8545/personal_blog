@@ -1,6 +1,6 @@
 <template>
   <div class="homepage">
-    <cover></cover>
+    <cover style="z-index: 11"></cover>
     <my-main></my-main>
   </div>
 </template>
