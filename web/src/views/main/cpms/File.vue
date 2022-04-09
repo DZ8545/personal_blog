@@ -44,7 +44,7 @@
               :timestamp="new Date(article.time).toLocaleString()"
               placement="top"
             >
-              <el-card class="elCard">
+              <el-card style="background-color: inherit">
                 <router-link to="/"></router-link>
                 <h4
                   @click="
@@ -61,6 +61,13 @@
           </template>
         </el-timeline>
       </el-card>
+    </div>
+    <div class="toTop">
+      <i
+        class="iconfont icon-huidaodingbu"
+        style="font-size: 30px; color: #feb8b0"
+        @click="toTop"
+      ></i>
     </div>
   </div>
 </template>
@@ -93,6 +100,12 @@ fetchCommentsNumber();
 fetchArticlesNumber();
 fetchArticleViewNumber();
 fetch();
+function toTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+}
 </script>
 
 <style scoped lang="less">
@@ -101,6 +114,11 @@ fetch();
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  .toTop {
+    position: fixed;
+    right: 80px;
+    bottom: 100px;
+  }
   .title {
     text-align: center;
     margin: 20px;
@@ -117,6 +135,8 @@ fetch();
   .statistic {
     .box-card {
       width: 750px;
+      background-color: inherit;
+
       .card-header {
         display: flex;
         justify-content: space-between;
@@ -142,6 +162,7 @@ fetch();
   .timeLine {
     margin: 40px 0;
     .box-card {
+      background-color: inherit;
       width: 750px;
       h4 {
         display: inline-block;
@@ -152,7 +173,7 @@ fetch();
         color: red;
         transform: translateX(10px);
         transition: all 1s ease;
-        cursor: pointer;
+        cursor: url(../../../assets/cursor/keHand.cur), default;
       }
     }
   }

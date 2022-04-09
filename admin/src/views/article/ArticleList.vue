@@ -1,6 +1,6 @@
 <template>
   <div class="categoryList">
-    <h2>分类列表</h2>
+    <h2>文章列表</h2>
     <el-table :data="listData">
       <el-table-column prop="_id" label="ID" width="220" />
       <el-table-column prop="categories" label="分类" />

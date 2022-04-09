@@ -48,5 +48,8 @@ const handleCurrentChange = (val: number) => {
     margin-top: 20px;
     margin-bottom: 50px;
   }
+  .demo-pagination-block :hover {
+    cursor: url(../../../assets/cursor/keHand.cur), default;
+  }
 }
 </style>

@@ -66,9 +66,7 @@
 
 <script setup>
 import { ref } from "vue";
-
 import { useRouter } from "vue-router";
-import { useStore } from "vuex";
 
 import getServer from "@/requset/server/getServer";
 // eslint-disable-next-line no-undef
@@ -151,6 +149,7 @@ switch (props.item.kind) {
     transition: all 1s linear;
   }
   .imgAndDescription:hover .description {
+    cursor: url(../../assets/cursor/keHand.cur), default;
     background-color: rgba(0, 0, 0, 0.5);
     span {
       opacity: 1;
@@ -169,6 +168,7 @@ switch (props.item.kind) {
     }
     .title span:hover {
       color: #d96354;
+      cursor: url(../../assets/cursor/keHand.cur), default;
     }
     .other {
       position: absolute;
@@ -212,7 +212,7 @@ switch (props.item.kind) {
       align-items: center;
       i {
         font-size: 25px;
-        cursor: url("../../assets/cursor/cursor.f19acf76.cur"), auto;
+        cursor: url(../../assets/cursor/keHand.cur), default;
       }
     }
   }

@@ -8,12 +8,21 @@
         <div class="name">DZ</div>
         <div class="description">一个前端萌新</div>
         <div class="links">
-          <i class="iconfont icon-github-fill"></i>
-          <i class="iconfont icon-bilibili-line"></i>
-          <i class="iconfont icon-weixin"></i>
-          <i class="iconfont icon-music"></i>
+          <a href="https://github.com/DZ8545" target="_blank"
+            ><i class="iconfont icon-github-fill"></i
+          ></a>
+          <a
+            href="https://space.bilibili.com/354550170?spm_id_from=333.337.0.0"
+            target="_blank"
+            ><i class="iconfont icon-bilibili-line"></i
+          ></a>
+          <a
+            href="https://music.163.com/#/user/home?id=1878740676"
+            target="_blank"
+            ><i class="iconfont icon-music"></i
+          ></a>
         </div>
-        <div style="margin-top: 10px">技术栈:</div>
+        <div style="margin-top: 10px">微信:13357320389</div>
       </el-card>
     </div>
     <div class="right">
@@ -36,16 +45,15 @@ import { ref } from "vue";
 import getServer from "@/requset/server/getServer";
 import Comment from "@/components/comment/Comment.vue";
 import { marked } from "marked";
-import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import myMenu from "@/components/menu/Menu";
 
 const route = useRoute();
 const id = route.params.id;
 const text = ref(null);
-const store = useStore();
+
 const article = ref([]);
-const numberOfDiscussions = ref(0);
+
 async function fetch() {
   const res = await getServer.get(`/article/${id}`);
   article.value = res.data;
@@ -131,6 +139,7 @@ fetch().then(() => {
     .box-card {
       width: 100%;
       height: 400px;
+      background-color: inherit;
       .head {
         width: 80px;
         height: 80px;
@@ -163,12 +172,16 @@ fetch().then(() => {
         width: 100%;
         margin-top: 10px;
         text-align: center;
+        a {
+          text-decoration: none;
+          color: black;
+        }
         i {
           font-size: 25px;
           margin: 0 5px;
         }
         i:hover {
-          cursor: pointer;
+          cursor: url(../../../assets/cursor/keHand.cur), default;
         }
       }
     }

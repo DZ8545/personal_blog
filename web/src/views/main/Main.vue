@@ -101,8 +101,6 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import Music from "@/components/music/Music";
 import { useRouter } from "vue-router";
 const router = useRouter();
 function onSubmit(event) {
@@ -217,7 +215,6 @@ function onSubmit(event) {
           font-size: 18px;
           color: rgba(0, 0, 0, 0.5);
           background-color: inherit;
-          cursor: pointer;
           input {
             background-color: inherit;
             border: 1px rgba(0, 0, 0, 0.2) solid;
@@ -250,11 +247,13 @@ function onSubmit(event) {
               color: #d96354;
               transform: translateX(8px);
               transition: all 1s ease;
+              cursor: url(../../assets/cursor/keHand.cur), auto;
             }
           }
         }
-        li:hover {
+        li:hover > span {
           color: #d96354;
+          cursor: url(../../assets/cursor/keHand.cur), auto;
         }
       }
       ul > li:hover ul {

@@ -33,7 +33,6 @@
             target="_blank"
             ><i class="iconfont icon-bilibili-line"></i
           ></a>
-          <a href=""><i class="iconfont icon-weixin"></i></a>
           <a
             href="https://music.163.com/#/user/home?id=1878740676"
             target="_blank"
@@ -59,13 +58,13 @@
 
 <script setup>
 import getPoetry from "@/requset/poetry/getPoetry";
-import { reactive, onMounted, ref, computed } from "vue";
+import { ref } from "vue";
 const poetry = ref([]);
 const flags = ref([]);
 const count = ref([]);
 const s = ref(0);
 const hello = ref("欢迎你的到来，希望你能有所收获");
-getPoetry.then((res) => {
+getPoetry().then((res) => {
   poetry.value = res.data.content.split(/[。、？，！；]/);
   poetry.value[poetry.value.length - 1] = res.data.author;
   poetry.value.push(res.data.origin);
@@ -187,7 +186,7 @@ setInterval(() => {
           font-size: 25px;
         }
         i:hover {
-          cursor: pointer;
+          cursor: url(../../assets/cursor/keHand.cur), default;
         }
       }
     }

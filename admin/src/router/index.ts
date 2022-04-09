@@ -42,6 +42,19 @@ const routes: Array<RouteRecordRaw> = [
         path: "/comment/list",
         component: CommentList,
       },
+      {
+        path: "/friend/create",
+        component: () => import("../views/friend/FriendEdit.vue"),
+      },
+      {
+        path: "/friend/edit/:id",
+        component: () => import("../views/friend/FriendEdit.vue"),
+        props: true,
+      },
+      {
+        path: "/friend/list",
+        component: () => import("../views/friend/FriendList.vue"),
+      },
     ],
   },
 ];

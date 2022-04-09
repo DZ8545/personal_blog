@@ -11,7 +11,6 @@ declare module 'vue' {
     ElCard: typeof import('element-plus/es')['ElCard']
     ElImage: typeof import('element-plus/es')['ElImage']
     ElPagination: typeof import('element-plus/es')['ElPagination']
-    ElPopover: typeof import('element-plus/es')['ElPopover']
     ElTimeline: typeof import('element-plus/es')['ElTimeline']
     ElTimelineItem: typeof import('element-plus/es')['ElTimelineItem']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']

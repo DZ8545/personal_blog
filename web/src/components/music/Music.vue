@@ -124,6 +124,9 @@ async function preMusic() {
   display: inline-block;
   font-size: 12px;
   color: rgba(254, 184, 176, 0.8);
+  i:hover {
+    cursor: url(../../assets/cursor/keHand.cur), default !important;
+  }
 }
 .musicActive {
   animation: z 1s infinite linear;
@@ -148,5 +151,6 @@ async function preMusic() {
 }
 .music img:hover {
   transform: scale(0.8);
+  cursor: url(../../assets/cursor/keHand.cur), default !important;
 }
 </style>

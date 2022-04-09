@@ -30,7 +30,6 @@ const listData = ref([]);
 async function fetch() {
   const res = await request.get("/categories");
   listData.value = res.data;
-  console.log(listData.value);
 }
 fetch();
 function deleteRow(row) {

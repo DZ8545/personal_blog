@@ -19,19 +19,6 @@
         ></textarea>
       </div>
       <div class="box3">
-        <button
-          class="preview"
-          :disabled="words.length === 0"
-          @click="previewClick"
-          title="预览"
-        >
-          <img
-            v-if="isActive_preview"
-            src="../../assets/img/preview_active.svg"
-            alt=""
-          />
-          <img v-else src="../../assets/img/preview.svg" alt="" />
-        </button>
         <div class="expression" @click="expressClick" title="表情">
           <img
             v-if="isActive_express"
@@ -45,10 +32,11 @@
         <button class="submit" @click="save">提交</button>
       </div>
       <div class="box5" v-if="isActive_express">
-        <div class="emotionText"></div>
-      </div>
-      <div class="box5" v-if="isActive_preview">
-        <div class="words">{{ words }}</div>
+        <div class="emotionText">
+          <span v-for="item of s" :key="item" @click="words = words + item">{{
+            item
+          }}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -70,6 +58,69 @@ const isActive_express = ref(false);
 const words = ref("");
 const number = ref(null);
 const mail = ref("");
+//😀😃😄😁😆😅🤣😂🙂🙃😉😊😇🥰😍🤩😘😗☺
+//😚😋😛🤪😝🤑🤗🤭🤫🤔🤐🤨😐😑😶😏😒🙄😬😮
+//🤥😌😔😪🤤🤢🤮🤧🥵🥶🥴😵😵🤯🧐😟🙁☹😮
+const s = ref([
+  "😀",
+  "😃",
+  "😄",
+  "😁",
+  "😆",
+  "😅",
+  "🤣",
+  "😂",
+  "🙂",
+  "🙃",
+  "😉",
+  "😊",
+  "😇",
+  "🥰",
+  "😍",
+  "🤩",
+  "😘",
+  "😗",
+  "☺",
+  "😚",
+  "😋",
+  "😛",
+  "🤪",
+  "😝",
+  "🤑",
+  "🤗",
+  "🤭",
+  "🤫",
+  "🤔",
+  "🤐",
+  "🤨",
+  "😐",
+  "😑",
+  "😶",
+  "😏",
+  "😒",
+  "🙄",
+  "😬",
+  "😮",
+  "🤥",
+  "😌",
+  "😔",
+  "😪",
+  "🤤",
+  "🤢",
+  "🤮",
+  "🤧",
+  "🥵",
+  "🥶",
+  "🥴",
+  "😵",
+  "😵",
+  "🤯",
+  "🧐",
+  "😟",
+  "🙁",
+  "☹",
+  "😮",
+]);
 const comment = ref({
   article: "",
   name: "",
@@ -83,10 +134,6 @@ const comment = ref({
 const expressClick = () => {
   isActive_express.value = !isActive_express.value;
   isActive_preview.value = false;
-};
-const previewClick = () => {
-  isActive_preview.value = !isActive_preview.value;
-  isActive_express.value = false;
 };
 // eslint-disable-next-line no-undef
 defineEmits(["cancel"]);
@@ -134,6 +181,7 @@ function save() {
     width: 600px;
     border: 2px solid rgba(0, 0, 0, 0.1);
     border-radius: 4px;
+
     .box1 {
       height: 45px;
       display: flex;
@@ -147,6 +195,7 @@ function save() {
         border: 0;
         outline: none;
         color: rgba(0, 0, 0, 0.5);
+        background-color: inherit;
         &:focus {
           border-bottom: 1px red dashed;
         }
@@ -157,7 +206,7 @@ function save() {
         right: 2px;
         top: 5px;
         padding: 5px;
-        background-color: white;
+        background-color: inherit;
         color: rgba(0, 0, 0, 0.5);
       }
     }
@@ -174,6 +223,7 @@ function save() {
         min-height: 120px;
         max-height: 200px;
         color: rgba(0, 0, 0, 0.5);
+        background-color: inherit;
       }
     }
     .box3 {
@@ -209,15 +259,16 @@ function save() {
       flex-direction: row-reverse;
       .submit {
         margin: 10px;
-        background-color: white;
         width: 60px;
         height: 30px;
         color: rgba(0, 0, 0, 0.5);
         border: 1px solid rgba(0, 0, 0, 0.1);
+        background-color: inherit;
       }
       .submit:hover {
         color: red;
         border-color: red;
+        cursor: url(../../assets/cursor/keHand.cur), default !important;
       }
     }
     .box5 {
@@ -226,7 +277,6 @@ function save() {
       margin-bottom: 10px;
       .emotionText {
         width: 570px;
-        height: 200px;
         overflow-y: auto;
         border: rgba(0, 0, 0, 0.1) solid 1px;
       }

@@ -40,7 +40,6 @@
 <script setup>
 //$store.state.comment.childrenCommentList
 import { ref } from "vue";
-import { useStore } from "vuex";
 import Release from "@/components/comment/Release";
 import getServer from "@/requset/server/getServer";
 // eslint-disable-next-line no-undef
@@ -101,9 +100,12 @@ if (!props.item.parent) {
       display: flex;
       flex-direction: row-reverse;
       .replyBtn {
-        background-color: white;
         color: rgba(0, 0, 0, 0.5);
         border-color: rgba(0, 0, 0, 0.2);
+        background-color: inherit;
+      }
+      .replyBtn:hover {
+        cursor: url(../../assets/cursor/keHand.cur), default !important;
       }
     }
   }

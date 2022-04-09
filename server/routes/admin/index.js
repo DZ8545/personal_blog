@@ -9,7 +9,7 @@ module.exports = (app) => {
     res.send(model);
   });
   router.get("/categories", async (req, res) => {
-    const items = await Category.find().limit(10);
+    const items = await Category.find();
     res.send(items);
   });
   router.get("/categories/:id", async (req, res) => {
@@ -34,7 +34,11 @@ module.exports = (app) => {
     res.send(model);
   });
   router.get("/articles/:skip", async (req, res) => {
-    const items = await Article.find().limit(9).skip(req.params.skip);
+    const items = await Article.find({
+      _id: { $ne: "6246ef7e77f7f26b8e5f7820" },
+    })
+      .limit(9)
+      .skip(req.params.skip);
     // .sort({ title: -1 });
     res.send(items);
   });
@@ -42,6 +46,7 @@ module.exports = (app) => {
   router.get("/articlesSearch", async (req, res) => {
     const items = await Article.find({
       title: { $regex: req.query.name, $options: "i" },
+      _id: { $ne: "6246ef7e77f7f26b8e5f7820" },
     })
       .limit(9)
       .skip(req.query.skip);
@@ -190,13 +195,16 @@ module.exports = (app) => {
       .match({
         article: new require("mongoose").Types.ObjectId(req.params.id),
         parent: undefined,
-      });
+      })
+      .sort({ _id: -1 });
     // const items = await Comment.find({ article: req.params.id, parent: "" });
     res.send(items);
   });
   //获取子评论
   router.get("/childrenComments/:id", async (req, res) => {
-    const items = await Comment.find({ parent: req.params.id });
+    const items = await Comment.find({ parent: req.params.id }).sort({
+      _id: -1,
+    });
     res.send(items);
   });
   //获取评论数
@@ -217,6 +225,31 @@ module.exports = (app) => {
   });
   router.delete("/commentsAll", async (req, res) => {
     const items = await Comment.deleteMany({});
+    res.send({
+      success: true,
+    });
+  });
+
+  //友链
+  const Friend = require("../../models/friend.js");
+  router.post("/friends", async (req, res) => {
+    const model = await Friend.create(req.body);
+    res.send(model);
+  });
+  router.get("/friends", async (req, res) => {
+    const items = await Friend.find();
+    res.send(items);
+  });
+  router.get("/friends/:id", async (req, res) => {
+    const items = await Friend.findById(req.params.id);
+    res.send(items);
+  });
+  router.put("/friends/:id", async (req, res) => {
+    const items = await Friend.findByIdAndUpdate(req.params.id, req.body);
+    res.send(items);
+  });
+  router.delete("/friends/:id", async (req, res) => {
+    const items = await Friend.findByIdAndDelete(req.params.id);
     res.send({
       success: true,
     });

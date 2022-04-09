@@ -3,4 +3,6 @@ const instance = axios.create({
   baseURL: "https://v1.jinrishici.com",
   timeout: 5000,
 });
-export default instance.get("/all.json");
+export default function () {
+  return instance.get("/all.json");
+}

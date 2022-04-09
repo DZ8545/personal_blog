@@ -36,6 +36,13 @@
     <div class="right">
       <myMenu :menus="menus"></myMenu>
     </div>
+    <div class="toTop">
+      <i
+        class="iconfont icon-huidaodingbu"
+        style="font-size: 30px; color: #feb8b0"
+        @click="toTop"
+      ></i>
+    </div>
   </div>
 </template>
 
@@ -54,7 +61,7 @@ const id = route.params.id;
 const article = ref([]);
 const text = ref(null);
 const store = useStore();
-const numberOfDiscussions = ref(0);
+
 const catalogues = ref([]);
 marked.setOptions({
   renderer: new marked.Renderer(),
@@ -97,7 +104,12 @@ fetch().then(() => {
     }
   }
 });
-
+function toTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+}
 store.dispatch("comment/getCommentNumber", id);
 </script>
 
@@ -207,6 +219,11 @@ store.dispatch("comment/getCommentNumber", id);
     top: 50%;
     max-width: 200px;
     transform: translateY(-54%);
+  }
+  .toTop {
+    position: fixed;
+    right: 80px;
+    bottom: 100px;
   }
 }
 </style>

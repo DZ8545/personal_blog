@@ -7,6 +7,8 @@
         </div>
       </template>
       <el-tree
+        style="background-color: inherit"
+        class="tree"
         :data="menus"
         :props="defaultProps"
         @node-click="handleNodeClick"
@@ -22,14 +24,13 @@ interface Tree {
   children?: Tree[];
 }
 // eslint-disable-next-line no-undef
-const props = defineProps(["menus"]);
+defineProps(["menus"]);
 const handleNodeClick = (data: Tree) => {
   window.scrollTo({
     top: document.getElementById(data.title.toLowerCase())!.offsetTop - 100,
     behavior: "smooth",
   });
 };
-console.log(props.menus);
 const defaultProps = {
   children: "children",
   label: "title",
@@ -39,7 +40,14 @@ const defaultProps = {
 <style scoped lang="less">
 .menu {
   .box-card {
+    background-color: inherit;
     width: 300px;
+    .tree:hover {
+      .el-tree-node__content:hover {
+        cursor: url(../../assets/cursor/keHand.cur), default !important;
+        width: 600px;
+      }
+    }
   }
 }
 </style>

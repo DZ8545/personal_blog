@@ -24,6 +24,11 @@
               <template #title>评论</template>
               <el-menu-item index="/comment/list">评论列表</el-menu-item>
             </el-menu-item-group>
+            <el-menu-item-group>
+              <template #title>友链</template>
+              <el-menu-item index="/friend/create">新建友链</el-menu-item>
+              <el-menu-item index="/friend/list">友链列表</el-menu-item>
+            </el-menu-item-group>
           </el-sub-menu>
         </el-menu>
       </el-scrollbar>
