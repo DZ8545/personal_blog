@@ -1,7 +1,7 @@
 <template>
   <div class="homepage">
-    <cover style="z-index: 11"></cover>
-    <my-main></my-main>
+    <cover style="z-index: 999"></cover>
+    <my-main ref="_main"></my-main>
   </div>
 </template>
 

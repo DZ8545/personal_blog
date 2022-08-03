@@ -18,15 +18,15 @@
         <div class="card-body">
           <div>
             <div class="number">{{ articlesNumber }}</div>
-            <div class="word">文章</div>
+            <div style="color: rgba(0, 0, 0, 0.8)">文章</div>
           </div>
           <div>
             <div class="number">{{ commentsNumber }}</div>
-            <div class="word">评论</div>
+            <div style="color: rgba(0, 0, 0, 0.8)">评论</div>
           </div>
           <div>
             <div class="number">{{ viewNumber }}</div>
-            <div class="word">阅读</div>
+            <div style="color: rgba(0, 0, 0, 0.8)">阅读</div>
           </div>
         </div>
       </el-card>
@@ -136,7 +136,6 @@ function toTop() {
     .box-card {
       width: 750px;
       background-color: inherit;
-
       .card-header {
         display: flex;
         justify-content: space-between;
@@ -152,9 +151,6 @@ function toTop() {
           font-size: 30px;
           color: rgba(0, 0, 0, 0.3);
           font-weight: bolder;
-        }
-        .word {
-          color: rgba(0, 0, 0, 0.8);
         }
       }
     }
@@ -174,6 +170,30 @@ function toTop() {
         transform: translateX(10px);
         transition: all 1s ease;
         cursor: url(../../../assets/cursor/keHand.cur), default;
+      }
+    }
+  }
+}
+@media screen and (max-width: 900px) {
+  .file {
+    .toTop {
+      right: 10px;
+      bottom: 20px;
+    }
+    .title {
+      padding: 0;
+      p {
+        margin: 0;
+      }
+    }
+    .statistic {
+      .box-card {
+        width: 350px;
+      }
+    }
+    .timeLine {
+      .box-card {
+        width: 350px;
       }
     }
   }

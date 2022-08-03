@@ -8,29 +8,26 @@
       autoplay
     ></audio>
     <template v-if="isActive">
-      <div style="position: relative">
-        <i
-          class="iconfont icon-shangyishou"
-          style="font-size: 30px; color: rgba(254, 184, 176, 0.8)"
-          @click="preMusic"
-        ></i>
-        <img
-          src="../../assets/img/music_active.svg"
-          class="musicActive"
-          alt=""
-          @click="musicClick"
-        />
-        <i
-          class="iconfont icon-xiayishou"
-          style="font-size: 30px; rgba(254, 184, 176, 0.8)"
-          @click="nextMusic"
-        ></i>
-        <span style="position: absolute; top: 40px; left: 0"
-          >{{ musics[currentIndex].name }}-{{
-            musics[currentIndex].artistsname
-          }}</span
-        >
-      </div>
+      <i
+        class="iconfont icon-shangyishou"
+        style="font-size: 30px; color: rgba(254, 184, 176, 0.8)"
+        @click="preMusic"
+      ></i>
+      <i
+        class="iconfont icon-yinlemusic216 musicActive"
+        @click="musicClick"
+        style="font-size: 30px; margin: 0 3px; display: inline-block"
+      ></i>
+      <i
+        class="iconfont icon-xiayishou"
+        style="font-size: 30px; rgba(254, 184, 176, 0.8)"
+        @click="nextMusic"
+      ></i>
+      <span style="position: absolute; top: 40px; left: 0"
+        >{{ musics[currentIndex].name }}-{{
+          musics[currentIndex].artistsname
+        }}</span
+      >
     </template>
     <template v-else>
       <i
@@ -38,7 +35,11 @@
         style="font-size: 30px; color: rgba(254, 184, 176, 0.8); opacity: 0"
         @click="preMusic"
       ></i>
-      <img src="../../assets/img/music.svg" alt="" @click="musicClick" />
+      <i
+        class="iconfont icon-yinlemusic216"
+        @click="musicClick"
+        style="font-size: 30px; color: rgba(0, 0, 0, 0.2); margin: 0 3px"
+      ></i>
     </template>
   </div>
 </template>
@@ -116,41 +117,50 @@ async function preMusic() {
 </script>
 
 <style scoped lang="less">
-.music {
-  position: fixed;
-  top: 120px;
-  left: 20px;
-  z-index: 10;
+i {
   display: inline-block;
-  font-size: 12px;
-  color: rgba(254, 184, 176, 0.8);
-  i:hover {
-    cursor: url(../../assets/cursor/keHand.cur), default !important;
+  width: 30px;
+  height: 30px;
+}
+@media screen and (min-width: 900px) {
+  .music {
+    position: fixed;
+    top: 120px;
+    left: 20px;
+    z-index: 10;
+    display: inline-block;
+    font-size: 12px;
+    color: rgba(254, 184, 176, 0.8);
+    i:hover {
+      cursor: url(../../assets/cursor/keHand.cur), default !important;
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .music {
+    position: fixed;
+    top: 80px;
+    right: 5px;
+    z-index: 10;
+    display: inline-block;
+    font-size: 12px;
+    color: rgba(254, 184, 176, 0.8);
   }
 }
 .musicActive {
-  animation: z 1s infinite linear;
-  margin: 0 5px;
+  animation: z 0.7s infinite linear;
 }
 @keyframes z {
   0% {
     transform: rotate(0);
   }
-  25% {
-    transform: rotate(90deg);
-  }
-  50% {
-    transform: rotate(180deg);
-  }
-  75% {
-    transform: rotate(270deg);
-  }
   100% {
     transform: rotate(360deg);
   }
 }
-.music img:hover {
-  transform: scale(0.8);
+.music i:hover {
+  transform: scale(0.9);
   cursor: url(../../assets/cursor/keHand.cur), default !important;
 }
 </style>

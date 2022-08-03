@@ -2,11 +2,18 @@
   "name": "admin",
   "version": "0.1.0",
   "private": true,
+  "description": "## Project setup ``` npm install ```",
+  "author": "",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "electron:build": "vue-cli-service electron:build",
+    "electron:serve": "vue-cli-service electron:serve",
+    "postinstall": "electron-builder install-app-deps",
+    "postuninstall": "electron-builder install-app-deps"
   },
+  "main": "background.ts",
   "dependencies": {
     "@kangc/v-md-editor": "^2.3.14",
     "@vueup/vue-quill": "^1.0.0-beta.8",
@@ -21,6 +28,7 @@
     "vuex": "^4.0.0"
   },
   "devDependencies": {
+    "@types/electron-devtools-installer": "^2.2.0",
     "@types/vue2-editor": "^2.6.1",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
@@ -31,6 +39,8 @@
     "@vue/cli-plugin-vuex": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
     "@vue/eslint-config-typescript": "^9.1.0",
+    "electron": "^13.0.0",
+    "electron-devtools-installer": "^3.1.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
@@ -40,10 +50,8 @@
     "prettier": "^2.4.1",
     "typescript": "~4.5.5",
     "unplugin-auto-import": "^0.6.6",
-    "unplugin-vue-components": "^0.18.1"
+    "unplugin-vue-components": "^0.18.1",
+    "vue-cli-plugin-electron-builder": "~2.1.1"
   },
-  "description": "## Project setup ``` npm install ```",
-  "main": ".eslintrc.js",
-  "author": "",
   "license": "ISC"
 }

@@ -4,7 +4,7 @@
       <div class="sentence" v-for="(i, index1) of poetry" :key="index1">
         <transition-group name="list">
           <template v-for="(item, index2) in i" :key="index2">
-            <div v-if="flags[index2 + count[index1]]">
+            <div v-show="flags[index2 + count[index1]]">
               {{ item }}
             </div>
           </template>
@@ -102,10 +102,10 @@ setInterval(() => {
 
 <style scoped lang="less">
 .cover {
+  overflow: hidden;
   width: 100%;
   height: 100%;
   display: flex;
-  overflow: hidden;
   justify-content: center;
   align-items: center;
   background: linear-gradient(#feb8b0, #fef9db);
@@ -228,65 +228,90 @@ setInterval(() => {
     border-radius: 50%;
     background: linear-gradient(to bottom, #ffc673, #ff653c);
   }
-  .bird {
+
+  .birds {
     position: absolute;
-    animation: bird 3s infinite;
-    &::after {
-      content: "";
+    top: -10px;
+    left: 80px;
+    .bird {
+      position: relative;
+      animation: bird 3s infinite;
+      &::after {
+        content: "";
+        position: absolute;
+        border: 3px #796b6c solid;
+        width: 18px;
+        height: 8px;
+        border-bottom: 0;
+        left: -19px;
+        border-top-right-radius: 18px;
+        border-top-left-radius: 18px;
+        border-left: 0;
+        animation: wing-right 1s infinite;
+      }
+      &::before {
+        content: "";
+        position: absolute;
+        border: 3px #796b6c solid;
+        width: 18px;
+        height: 8px;
+        border-bottom: 0;
+        border-top-right-radius: 18px;
+        border-top-left-radius: 18px;
+        border-right: 0;
+        animation: wing-left 1s infinite;
+      }
+      @keyframes wing-left {
+        0% {
+          transform: rotate(0deg);
+        }
+        50% {
+          transform: rotate(10deg);
+        }
+        100% {
+          transform: rotate(0deg);
+        }
+      }
+      @keyframes wing-right {
+        0% {
+          transform: rotate(0deg);
+        }
+        50% {
+          transform: rotate(-10deg);
+        }
+        100% {
+          transform: rotate(0deg);
+        }
+      }
+      @keyframes bird {
+        0% {
+          transform: translate(0, 0);
+        }
+        50% {
+          transform: translate(2px, -3px);
+        }
+        100% {
+          transform: translate(0, 0);
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 900px) {
+    .sun {
+      left: 10px;
+      top: 10px;
+    }
+    .birds {
       position: absolute;
-      border: 3px #796b6c solid;
-      width: 18px;
-      height: 8px;
-      border-bottom: 0;
-      left: -19px;
-      border-top-right-radius: 18px;
-      border-top-left-radius: 18px;
-      border-left: 0;
-      animation: wing-right 1s infinite;
+      top: -50px;
+      left: -50px;
     }
-    &::before {
-      content: "";
-      position: absolute;
-      border: 3px #796b6c solid;
-      width: 18px;
-      height: 8px;
-      border-bottom: 0;
-      border-top-right-radius: 18px;
-      border-top-left-radius: 18px;
-      border-right: 0;
-      animation: wing-left 1s infinite;
-    }
-    @keyframes wing-left {
-      0% {
-        transform: rotate(0deg);
-      }
-      50% {
-        transform: rotate(10deg);
-      }
-      100% {
-        transform: rotate(0deg);
-      }
-    }
-    @keyframes wing-right {
-      0% {
-        transform: rotate(0deg);
-      }
-      50% {
-        transform: rotate(-10deg);
-      }
-      100% {
-        transform: rotate(0deg);
-      }
-    }
-    @keyframes bird {
-      0% {
-        transform: translate(0, 0);
-      }
-      50% {
-        transform: translate(2px, -3px);
-      }
-      100% {
-        transform: translate(0, 0);
+    .poetry {
+      top: 10px;
+      right: 10px;
+      font-size: 15px;
+      .sentence {
+        margin-left: 10px;
       }
     }
   }
@@ -388,9 +413,17 @@ setInterval(() => {
       margin-top: 20px;
     }
   }
+  @media screen and (max-width: 900px) {
+    .house {
+      transform: scale(0.5);
+      right: -30px;
+      bottom: 0;
+    }
+  }
   .arrowContain {
     position: absolute;
     bottom: 80px;
+    z-index: 3;
     .arrow {
       width: 25px;
       height: 25px;

@@ -6,6 +6,69 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "8727224",
+      "name": "爱心",
+      "font_class": "aixin",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "182618",
+      "name": "小游戏",
+      "font_class": "xiaoyouxi",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
+      "icon_id": "26270936",
+      "name": "老鼠",
+      "font_class": "laoshu",
+      "unicode": "e621",
+      "unicode_decimal": 58913
+    },
+    {
+      "icon_id": "12939972",
+      "name": "更多",
+      "font_class": "gengduo",
+      "unicode": "e643",
+      "unicode_decimal": 58947
+    },
+    {
+      "icon_id": "201555",
+      "name": "表情",
+      "font_class": "biaoqing",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "775334",
+      "name": "音乐_music216",
+      "font_class": "yinlemusic216",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
+      "icon_id": "1183035",
+      "name": "日历",
+      "font_class": "rili",
+      "unicode": "e663",
+      "unicode_decimal": 58979
+    },
+    {
+      "icon_id": "5924483",
+      "name": "浏览",
+      "font_class": "liulan",
+      "unicode": "e624",
+      "unicode_decimal": 58916
+    },
+    {
+      "icon_id": "26047016",
+      "name": "讨论、论坛",
+      "font_class": "a-taolunluntan",
+      "unicode": "e674",
+      "unicode_decimal": 58996
+    },
+    {
       "icon_id": "851708",
       "name": "回到顶部",
       "font_class": "huidaodingbu",

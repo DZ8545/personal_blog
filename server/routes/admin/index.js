@@ -30,7 +30,7 @@ module.exports = (app) => {
   //文章
   const Article = require("../../models/article.js");
   router.post("/articles", async (req, res) => {
-    const model = await Article.create(req.body);
+    const model = await Article.create(req.body).sort({ time: -1 });
     res.send(model);
   });
   router.get("/articles/:skip", async (req, res) => {
@@ -38,8 +38,8 @@ module.exports = (app) => {
       _id: { $ne: "6246ef7e77f7f26b8e5f7820" },
     })
       .limit(9)
-      .skip(req.params.skip);
-    // .sort({ title: -1 });
+      .skip(req.params.skip)
+      .sort({ time: -1 });
     res.send(items);
   });
   //search
@@ -49,7 +49,8 @@ module.exports = (app) => {
       _id: { $ne: "6246ef7e77f7f26b8e5f7820" },
     })
       .limit(9)
-      .skip(req.query.skip);
+      .skip(req.query.skip)
+      .sort({ time: -1 });
     res.send(items);
   });
   router.get("/articlesSearchNumber/:name", async (req, res) => {
@@ -59,7 +60,9 @@ module.exports = (app) => {
     res.send(items.length);
   });
   router.get("/articlesAll", async (req, res) => {
-    const items = await Article.find().sort({ time: 1 });
+    const items = await Article.find({
+      _id: { $ne: "6246ef7e77f7f26b8e5f7820" },
+    }).sort({ time: -1 });
     res.send(items);
   });
   //获取阅读数
@@ -111,7 +114,8 @@ module.exports = (app) => {
       kind: "6242b4eb97ca3f92fa752036",
     })
       .limit(9)
-      .skip(req.params.skip);
+      .skip(req.params.skip)
+      .sort({ time: -1 });
     res.send(items);
   });
   //获取学习笔记分类的文章
@@ -121,7 +125,8 @@ module.exports = (app) => {
       kind: "624305226f1943d5f6f9dfc9",
     })
       .limit(9)
-      .skip(req.params.skip);
+      .skip(req.params.skip)
+      .sort({ time: -1 });
     res.send(items);
   });
   //获取代码分享分类的文章
@@ -131,7 +136,8 @@ module.exports = (app) => {
       kind: "6242b4f497ca3f92fa752038",
     })
       .limit(9)
-      .skip(req.params.skip);
+      .skip(req.params.skip)
+      .sort({ time: -1 });
     res.send(items);
   });
   //获取随笔分类的文章
@@ -141,7 +147,8 @@ module.exports = (app) => {
       kind: "6242b4f997ca3f92fa75203a",
     })
       .limit(9)
-      .skip(req.params.skip);
+      .skip(req.params.skip)
+      .sort({ time: -1 });
     res.send(items);
   });
   router.get("/article/:id", async (req, res) => {
@@ -256,6 +263,27 @@ module.exports = (app) => {
   });
 
   app.use("/admin/api", router);
+  //小游戏排行榜
+  const Rank = require("../../models/rank.js");
+  router.post("/ranks", async (req, res) => {
+    const model = await Rank.create(req.body);
+    res.send(model);
+  });
+  router.get("/ranks/:id", async (req, res) => {
+    const items = await Rank.find({ gameName: req.params.id })
+      .sort({
+        score: -1,
+      })
+      .limit(5);
+    console.log(items);
+    res.send(items);
+  });
+  router.delete("/ranks/:id", async (req, res) => {
+    const items = await Rank.findByIdAndDelete(req.params.id);
+    res.send({
+      success: true,
+    });
+  });
 
   //上传图片
   const multer = require("multer");

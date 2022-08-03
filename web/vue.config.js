@@ -14,6 +14,6 @@ module.exports = defineConfig({
       }),
     ],
   },
-  publicPath: process.env.NODE_ENV === "production" ? "/web/" : "",
+  publicPath: process.env.NODE_ENV === "production" ? "/" : "",
   outputDir: __dirname + "/../server/web",
 });

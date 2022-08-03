@@ -13,23 +13,23 @@
         <button class="cancel" @click="$emit('cancel')" v-if="flag">X</button>
       </div>
       <div class="box2">
-        <textarea
-          :placeholder="name || '留下你的足迹...'"
+        <el-input
+          class="elInput"
           v-model="words"
-        ></textarea>
-      </div>
-      <div class="box3">
-        <div class="expression" @click="expressClick" title="表情">
-          <img
-            v-if="isActive_express"
-            src="../../assets/img/express_active.svg"
-            alt=""
-          />
-          <img v-else src="../../assets/img/express.svg" alt="" />
-        </div>
+          :placeholder="name || '留下你的足迹...'"
+          type="textarea"
+        />
       </div>
       <div class="box4">
         <button class="submit" @click="save">提交</button>
+        <div class="expression" @click="expressClick" title="表情">
+          <i
+            v-if="isActive_express"
+            class="iconfont icon-biaoqing"
+            style="color: deepskyblue"
+          ></i>
+          <i class="iconfont icon-biaoqing" v-else></i>
+        </div>
       </div>
       <div class="box5" v-if="isActive_express">
         <div class="emotionText">
@@ -58,9 +58,6 @@ const isActive_express = ref(false);
 const words = ref("");
 const number = ref(null);
 const mail = ref("");
-//😀😃😄😁😆😅🤣😂🙂🙃😉😊😇🥰😍🤩😘😗☺
-//😚😋😛🤪😝🤑🤗🤭🤫🤔🤐🤨😐😑😶😏😒🙄😬😮
-//🤥😌😔😪🤤🤢🤮🤧🥵🥶🥴😵😵🤯🧐😟🙁☹😮
 const s = ref([
   "😀",
   "😃",
@@ -178,12 +175,10 @@ function save() {
 .release {
   .input {
     margin-top: 20px;
-    width: 600px;
+    width: 100%;
     border: 2px solid rgba(0, 0, 0, 0.1);
     border-radius: 4px;
-
     .box1 {
-      height: 45px;
       display: flex;
       align-items: center;
       margin-right: 10px;
@@ -214,28 +209,23 @@ function save() {
       display: flex;
       justify-content: center;
       margin-top: 10px;
-      textarea {
-        border: none;
-        outline: none;
-        width: 570px;
-        max-width: 570px;
-        min-width: 570px;
-        min-height: 120px;
-        max-height: 200px;
-        color: rgba(0, 0, 0, 0.5);
+      height: 200px;
+      ::v-deep .el-textarea__inner {
+        outline: none !important;
         background-color: inherit;
+        height: 180px;
+        max-height: 200px;
       }
     }
-    .box3 {
-      margin-top: 10px;
+
+    .box4 {
       display: flex;
       flex-direction: row-reverse;
       .expression {
-        width: 28px;
-        height: 28px;
-        margin-right: 10px;
-        img {
-          width: 100%;
+        margin-top: 2px;
+        i {
+          font-size: 40px;
+          opacity: 0.3;
         }
       }
       .expression:hover {
@@ -253,10 +243,6 @@ function save() {
           width: 100%;
         }
       }
-    }
-    .box4 {
-      display: flex;
-      flex-direction: row-reverse;
       .submit {
         margin: 10px;
         width: 60px;
@@ -276,13 +262,24 @@ function save() {
       justify-content: center;
       margin-bottom: 10px;
       .emotionText {
-        width: 570px;
+        width: 100%;
         overflow-y: auto;
         border: rgba(0, 0, 0, 0.1) solid 1px;
       }
       .words {
         width: 570px;
         border: rgba(0, 0, 0, 0.1) solid 1px;
+      }
+    }
+  }
+  @media screen and (max-width: 900px) {
+    .input {
+      max-width: 400px;
+      .box1 {
+        display: block;
+        input {
+          width: 100%;
+        }
       }
     }
   }

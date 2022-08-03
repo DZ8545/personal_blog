@@ -75,6 +75,16 @@ const routes: Array<RouteRecordRaw> = [
         name: "search",
         component: () => import("../views/main/cpms/Search.vue"),
       },
+      {
+        path: "snake",
+        name: "snake",
+        component: () => import("../views/main/cpms/Snake.vue"),
+      },
+      {
+        path: "draw",
+        name: "draw",
+        component: () => import("../views/main/cpms/Draw.vue"),
+      },
     ],
   },
 ];

@@ -6,7 +6,7 @@
           lazy
           fit="cover"
           class="elImg"
-          :src="'http://www.dmoe.cc/random.php?time=' + Math.random() * 10000"
+          :src="'https://www.dmoe.cc/random.php?time=' + Math.random() * 10000"
           alt=""
         />
         <!--        <img src="https://tenapi.cn/acg">-->
@@ -15,7 +15,7 @@
         <!--        一叶三秋：https://api.ghser.com/random/api.php-->
       </div>
       <div class="description">
-        <span>{{ item.description }}</span>
+        <span style="width: 250px">{{ item.description }}</span>
       </div>
     </div>
     <div class="content">
@@ -24,15 +24,15 @@
       </div>
       <div class="other">
         <div class="date">
-          <img src="../../assets/img/date.svg" alt="" class="date" />
+          <i class="iconfont icon-rili"></i>
           {{ new Date(item.time).toLocaleDateString() }}
         </div>
         <div class="look">
-          <img src="../../assets/img/look.svg" alt="" class="look" />
+          <i class="iconfont icon-liulan"></i>
           {{ item.NumberOfVisitors }}
         </div>
         <div class="taol">
-          <img src="../../assets/img/taol.svg" alt="" class="taol" />
+          <i class="iconfont icon-a-taolunluntan"></i>
           {{ numberOfDiscussions }}
         </div>
       </div>
@@ -178,25 +178,27 @@ switch (props.item.kind) {
       display: flex;
       justify-content: space-around;
       align-items: center;
+      i {
+        display: inline-block;
+        width: 30px;
+        text-align: center;
+        color: rgba(0, 0, 0, 0.4);
+      }
       .look {
         display: flex;
         justify-content: space-around;
         align-items: center;
+        i {
+          font-size: 27px;
+        }
       }
       .taol {
         display: flex;
         justify-content: space-around;
         align-items: center;
-      }
-      .look img {
-        width: 25px;
-        height: 25px;
-        margin-right: 4px;
-      }
-      .taol img {
-        width: 20px;
-        height: 20px;
-        margin-right: 4px;
+        i {
+          font-size: 19px;
+        }
       }
     }
     .category {
@@ -220,5 +222,10 @@ switch (props.item.kind) {
 .card:hover {
   box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.3);
   transition: all 0.5s linear;
+}
+@media screen and (max-width: 900px) {
+  .card {
+    width: 100%;
+  }
 }
 </style>

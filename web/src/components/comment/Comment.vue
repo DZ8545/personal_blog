@@ -12,7 +12,7 @@
         :item="item"
       >
         <template v-slot:line>
-          <hr style="margin-top: 20px" />
+          <hr />
         </template>
       </comment-card>
     </div>
@@ -35,6 +35,7 @@ store.dispatch("comment/getCommentList", id);
 <style scoped lang="less">
 .comment {
   margin-top: 20px;
+  max-width: 800px;
   .title {
     span {
       border-left: 3px red solid;
@@ -45,6 +46,16 @@ store.dispatch("comment/getCommentList", id);
   }
 }
 hr {
+  margin-top: 20px;
   color: rgba(0, 0, 0, 0.1);
+}
+@media screen and (max-width: 900px) {
+  .comment {
+    margin-left: 10px;
+    margin-top: 0;
+  }
+  hr {
+    margin-top: 3px;
+  }
 }
 </style>

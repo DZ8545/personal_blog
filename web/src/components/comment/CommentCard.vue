@@ -68,7 +68,7 @@ if (!props.item.parent) {
 
 <style scoped lang="less">
 .commentCard {
-  width: 600px;
+  width: 100%;
   display: flex;
   margin-bottom: 10px;
   margin-top: 10px;
@@ -111,6 +111,28 @@ if (!props.item.parent) {
   }
   .child {
     transform: scale(0.9) translateX(-40px);
+  }
+}
+@media screen and (max-width: 900px) {
+  .commentCard {
+    max-width: 400px;
+    margin-top: 5px;
+    .headImg {
+      width: 25px;
+      margin-right: 5px;
+      img {
+        width: 25px;
+        border-radius: 50%;
+      }
+    }
+    .other {
+      .time {
+        margin-top: 0;
+      }
+      .remark {
+        margin-top: 0;
+      }
+    }
   }
 }
 </style>

@@ -12,6 +12,7 @@
         :data="menus"
         :props="defaultProps"
         @node-click="handleNodeClick"
+        accordion
       >
       </el-tree>
     </el-card>

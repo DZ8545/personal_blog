@@ -1,5 +1,5 @@
 <template>
-  <div class="messageBoard">
+  <div class="about">
     <div class="left">
       <el-card class="box-card">
         <div class="head">
@@ -23,9 +23,18 @@
           ></a>
         </div>
         <div style="margin-top: 10px">微信:13357320389</div>
+        <div class="time">
+          本站已运行:
+          <div>
+            {{ day }}天 {{ (h + "").padStart(2, "0") }}:{{
+              (m + "").padStart(2, "0")
+            }}:{{ (s + "").padStart(2, "0") }}
+          </div>
+        </div>
       </el-card>
     </div>
     <div class="right">
+      <myMenu class="myMenu" :menus="menus"></myMenu>
       <div class="title">
         <div style="width: 400px">
           <h1>关于</h1>
@@ -36,7 +45,6 @@
         <comment></comment>
       </div>
     </div>
-    <myMenu class="menu" :menus="menus"></myMenu>
   </div>
 </template>
 
@@ -51,7 +59,11 @@ import myMenu from "@/components/menu/Menu";
 const route = useRoute();
 const id = route.params.id;
 const text = ref(null);
-
+let time = 0;
+const day = ref(0);
+const h = ref(0);
+const m = ref(0);
+const s = ref(0);
 const article = ref([]);
 
 async function fetch() {
@@ -81,14 +93,28 @@ fetch().then(() => {
     }
   }
 });
+setInterval(() => {
+  time = Date.now();
+  time = parseInt((time - 1649466024000) / 1000);
+  day.value = parseInt(time / 3600 / 24);
+  h.value = parseInt((time % (3600 * 24)) / 3600);
+  m.value = parseInt((time % 3600) / 60);
+  s.value = parseInt(time % 60);
+}, 1000);
 </script>
 
 <style scoped lang="less">
-.messageBoard {
+.about {
   display: flex;
-  width: 100%;
-  height: 100%;
+  margin: 0 auto;
   .right {
+    .myMenu {
+      position: fixed;
+      top: 50%;
+      max-width: 200px;
+      transform: translateY(-54%);
+      margin-left: 930px;
+    }
     margin-left: 50px;
     width: 700px;
     display: flex;
@@ -123,6 +149,9 @@ fetch().then(() => {
         padding: 5px;
         font-size: 20px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        background-color: #feb8b0;
+        opacity: 0.5;
+        border-radius: 10px;
       }
       h1::before {
         content: "#";
@@ -140,6 +169,15 @@ fetch().then(() => {
       width: 100%;
       height: 400px;
       background-color: inherit;
+      .time {
+        margin-top: 8px;
+        div {
+          font-size: 20px;
+          font-weight: bolder;
+          color: #feb8b0;
+          text-align: center;
+        }
+      }
       .head {
         width: 80px;
         height: 80px;
@@ -186,12 +224,24 @@ fetch().then(() => {
       }
     }
   }
-  .menu {
-    position: fixed;
-    right: 150px;
-    top: 50%;
-    max-width: 200px;
-    transform: translateY(-54%);
+}
+@media screen and (max-width: 900px) {
+  .about {
+    display: block;
+    .right {
+      margin-left: 0;
+      width: 100vw;
+      .box1 {
+        width: 100vw;
+      }
+      .title {
+        padding: 0;
+      }
+    }
+    .left {
+      width: 90vw;
+      margin: 20px auto;
+    }
   }
 }
 </style>

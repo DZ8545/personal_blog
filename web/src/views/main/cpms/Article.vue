@@ -1,22 +1,22 @@
 <template>
   <div class="article">
-    <div class="left"></div>
     <div class="content">
+      <myMenu :menus="menus" class="myMenu"></myMenu>
       <div class="head">
         <div class="title">
           <h2>{{ article.title }}</h2>
         </div>
         <div class="other">
           <div class="date">
-            <img src="@/assets/img/date.svg" alt="" class="date" />
+            <i class="iconfont icon-rili"></i>
             {{ new Date(article.time).toLocaleDateString() }}
           </div>
           <div class="look">
-            <img src="@/assets/img/look.svg" alt="" class="look" />
+            <i class="iconfont icon-liulan"></i>
             {{ article.NumberOfVisitors }}
           </div>
           <div class="taol">
-            <img src="@/assets/img/taol.svg" alt="" class="taol" />
+            <i class="iconfont icon-a-taolunluntan"></i>
             {{ $store.state.comment.commentNumber }}
           </div>
           <div class="time">
@@ -33,9 +33,6 @@
         <div style="height: 200px"></div>
       </div>
     </div>
-    <div class="right">
-      <myMenu :menus="menus"></myMenu>
-    </div>
     <div class="toTop">
       <i
         class="iconfont icon-huidaodingbu"
@@ -47,7 +44,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, nextTick } from "vue";
 import getServer from "@/requset/server/getServer";
 import { useRoute } from "vue-router";
 import { marked } from "marked";
@@ -81,7 +78,25 @@ marked.setOptions({
 async function fetch() {
   const res = await getServer.get(`/article/${id}`);
   article.value = res.data;
-  text.value = marked.parse(article.value.body); // 将markdown内容解析
+  // article.value.body.replaceAll(" src=", " data-src=");
+  text.value = marked.parse(article.value.body).replace(/src/g, "data-src"); // 将markdown内容解析
+  //图片懒加载
+  nextTick(() => {
+    const imgs = document.querySelectorAll(".body img");
+    const observer = new IntersectionObserver((entirs) => {
+      entirs.forEach((item) => {
+        if (item.isIntersecting) {
+          const img = item.target;
+          const src = img.getAttribute("data-src");
+          img.setAttribute("src", src);
+          observer.unobserve(img);
+        }
+      });
+    });
+    imgs.forEach((img) => {
+      observer.observe(img);
+    });
+  });
 }
 const menus = ref([]);
 fetch().then(() => {
@@ -115,12 +130,19 @@ store.dispatch("comment/getCommentNumber", id);
 
 <style scoped lang="less">
 .article {
-  width: 100%;
-  height: 100%;
   display: flex;
+  .myMenu {
+    position: fixed;
+    top: 50%;
+    max-width: 200px;
+    transform: translateY(-54%);
+    margin-left: 800px;
+    //background-color: white;
+  }
   .content {
-    max-width: 700px;
+    width: 800px;
     margin: 0 auto;
+    //background-color: white;
     .head {
       position: relative;
       border-bottom: 1px dotted rgba(0, 0, 0, 0.8);
@@ -133,7 +155,14 @@ store.dispatch("comment/getCommentNumber", id);
         display: flex;
         flex-wrap: nowrap;
         position: relative;
+        i {
+          color: rgba(0, 0, 0, 0.4);
+        }
         .look {
+          i {
+            font-size: 22px;
+            margin-bottom: -3px;
+          }
           margin-left: 10px;
           display: flex;
           justify-content: center;
@@ -144,16 +173,6 @@ store.dispatch("comment/getCommentNumber", id);
           display: flex;
           justify-content: center;
           align-items: center;
-        }
-        .look img {
-          width: 25px;
-          height: 25px;
-          margin-right: 4px;
-        }
-        .taol img {
-          width: 20px;
-          height: 20px;
-          margin-right: 4px;
         }
         .time {
           color: rgba(0, 0, 0, 0.5);
@@ -184,6 +203,9 @@ store.dispatch("comment/getCommentNumber", id);
         font-size: 20px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         margin-bottom: 10px;
+        background-color: #feb8b0;
+        opacity: 0.5;
+        border-radius: 10px;
       }
       h1::before {
         content: "#";
@@ -195,6 +217,9 @@ store.dispatch("comment/getCommentNumber", id);
         font-size: 19px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         margin-bottom: 10px;
+        background-color: #feb8b0;
+        opacity: 0.5;
+        border-radius: 10px;
       }
       h2::before {
         content: "##";
@@ -209,21 +234,29 @@ store.dispatch("comment/getCommentNumber", id);
         }
       }
       img {
-        max-width: 500px;
+        max-width: 600px;
+      }
+      @media screen and (max-width: 900px) {
+        img {
+          max-width: 350px;
+        }
       }
     }
   }
-  .right {
-    position: fixed;
-    right: 180px;
-    top: 50%;
-    max-width: 200px;
-    transform: translateY(-54%);
-  }
+
   .toTop {
     position: fixed;
     right: 80px;
     bottom: 100px;
+  }
+  @media screen and (max-width: 900px) {
+    .content {
+      max-width: 100%;
+    }
+    .toTop {
+      right: 5px;
+      bottom: 50px;
+    }
   }
 }
 </style>

@@ -72,4 +72,14 @@ function toTop() {
     }
   }
 }
+@media screen and (max-width: 900px) {
+  .messageBoard {
+    .box1 {
+      width: 350px;
+    }
+    .title {
+      padding: 0;
+    }
+  }
+}
 </style>
