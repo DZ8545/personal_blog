@@ -187,7 +187,30 @@
               </span>
             </router-link>
           </el-menu-item>
-          <el-menu-item index="5">
+          <el-sub-menu index="5">
+            <template #title>
+              <i class="iconfont icon-xiaoyouxi" style="font-size: 20px"></i
+              >小游戏
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="5-1">
+                <router-link to="/main/snake" custom v-slot="props">
+                  <span @click="props.navigate">贪吃蛇</span>
+                </router-link>
+              </el-menu-item>
+              <el-menu-item index="5-2">
+                <router-link to="/main/sudoku" custom v-slot="props">
+                  <span @click="props.navigate">数独</span>
+                </router-link>
+              </el-menu-item>
+              <el-menu-item index="5-3">
+                <router-link to="/main/draw" custom v-slot="props">
+                  <span @click="props.navigate">涂鸦板</span>
+                </router-link>
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-sub-menu>
+          <el-menu-item index="6">
             <router-link
               to="/main/about/6246ef7e77f7f26b8e5f7820"
               custom
