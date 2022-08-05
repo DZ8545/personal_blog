@@ -78,6 +78,11 @@
                 </router-link>
               </li>
               <li>
+                <router-link to="/main/sudoku" custom v-slot="props">
+                  <span @click="props.navigate">数独</span>
+                </router-link>
+              </li>
+              <li>
                 <router-link to="/main/draw" custom v-slot="props">
                   <span @click="props.navigate">涂鸦板</span>
                 </router-link>

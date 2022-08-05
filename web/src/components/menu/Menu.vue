@@ -28,7 +28,7 @@ interface Tree {
 defineProps(["menus"]);
 const handleNodeClick = (data: Tree) => {
   window.scrollTo({
-    top: document.getElementById(data.title.toLowerCase())!.offsetTop - 100,
+    top: document.getElementById(data.title.toLowerCase())?.offsetTop - 100,
     behavior: "smooth",
   });
 };

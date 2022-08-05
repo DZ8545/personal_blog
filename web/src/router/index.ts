@@ -1,9 +1,4 @@
-import {
-  createRouter,
-  createWebHashHistory,
-  createWebHistory,
-  RouteRecordRaw,
-} from "vue-router";
+import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import Homepage from "../views/main/Homepage.vue";
 
 const routes: Array<RouteRecordRaw> = [
@@ -79,6 +74,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "snake",
         name: "snake",
         component: () => import("../views/main/cpms/Snake.vue"),
+      },
+      {
+        path: "sudoku",
+        name: "sudoku",
+        component: () => import("../views/main/cpms/Sudoku.vue"),
       },
       {
         path: "draw",

@@ -33,7 +33,7 @@ async function fetchNumber() {
 }
 fetch();
 fetchNumber();
-const handleCurrentChange = (val: number) => {
+const handleCurrentChange = () => {
   fetch();
 };
 </script>
