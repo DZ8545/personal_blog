@@ -105,7 +105,7 @@ async function imgAdd(pos: any, file: any) {
   // 第一步.将图片上传到服务器.
   const formdata: FormData = new FormData();
   formdata.append("file", file);
-  const res = await request.post("/upload", formdata).then((response) => {
+  await request.post("/upload", formdata).then((response) => {
     md.value && md.value.$img2Url(pos, response.data.url);
   });
 }

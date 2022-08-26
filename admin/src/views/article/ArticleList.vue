@@ -43,7 +43,7 @@ function deleteRow(row: rowType) {
     cancelButtonText: "取消",
     type: "warning",
   }).then(async () => {
-    const res = await request.delete(`/articles/${row._id}`);
+    await request.delete(`/articles/${row._id}`);
     ElMessage({
       type: "success",
       message: "删除成功!",
