@@ -25,9 +25,6 @@
         </div>
       </div>
       <div class="body" v-html="text"></div>
-      <!--      <div class="body">-->
-      <!--        <v-md-preview :text="text"></v-md-preview>-->
-      <!--      </div>-->
       <div class="foot">
         <comment></comment>
         <div style="height: 200px"></div>

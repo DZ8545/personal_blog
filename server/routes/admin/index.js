@@ -30,7 +30,7 @@ module.exports = (app) => {
   //文章
   const Article = require("../../models/article.js");
   router.post("/articles", async (req, res) => {
-    const model = await Article.create(req.body).sort({ time: -1 });
+    const model = await Article.create(req.body);
     res.send(model);
   });
   router.get("/articles/:skip", async (req, res) => {
@@ -262,7 +262,7 @@ module.exports = (app) => {
     });
   });
 
-  app.use("/admin/api", router);
+
   //小游戏排行榜
   const Rank = require("../../models/rank.js");
   router.post("/ranks", async (req, res) => {
@@ -275,7 +275,6 @@ module.exports = (app) => {
         score: -1,
       })
       .limit(5);
-    console.log(items);
     res.send(items);
   });
   router.delete("/ranks/:id", async (req, res) => {
@@ -285,13 +284,63 @@ module.exports = (app) => {
     });
   });
 
+  const Users = require("../../models/users.js");
+  router.post("/users", async (req, res) => {
+    const info = req.body
+    if(info.signal==='暗号'&&info.identityNumber==='5472'){
+      await Users.create(req.body);
+      res.send('success');
+    }else{
+      res.send('fail')
+    }
+  });
+  router.get("/users/:info", async (req, res) => {
+    const info = req.params.info.split(',')
+    const items = [...await Users.find({ account: info[0] })]
+    for(const item of items){
+      if(item.password===info[1]){
+        const {setToken} = require('../../utils/useJwt')
+        return res.send({
+          code: 200,
+          data: {
+            message: '登录成功！',
+            token: setToken(info[0]),
+            flag: true,
+            account:item.account,
+            password:item.password
+          }
+        })
+      }
+    }
+    return res.send('fail')
+  });
+  router.get("/userId/:id", async (req, res) => {
+    const items = await Users.findById(req.params.id);
+    res.send(items)
+  });
+  router.get("/allUsers", async (req, res) => {
+    const items = await Users.find();
+    res.send(items);
+  });
+  router.put("/users/:id", async (req, res) => {
+    const items = await Users.findByIdAndUpdate(req.params.id, req.body);
+    res.send(items);
+  });
+  router.delete("/users/:id", async (req, res) => {
+    await Users.findByIdAndDelete(req.params.id);
+    res.send({
+      success: true,
+    });
+  });
+
+  app.use("/admin/api", router);
   //上传图片
   const multer = require("multer");
   const upload = multer({ dest: __dirname + "../../../uploads" });
   app.post("/admin/api/upload", upload.single("file"), async (req, res) => {
     const file = req.file;
-    // file.url = `http://localhost:3000/uploads/${file.filename}`;
-    file.url = `http://www.dz8545.xyz/uploads/${file.filename}`;
+    file.url = `http://localhost:3000/uploads/${file.filename}`;
+    // file.url = `http://www.dz8545.xyz/uploads/${file.filename}`;
     res.send(file);
   });
 };
