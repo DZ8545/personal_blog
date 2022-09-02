@@ -1,13 +1,6 @@
 <template>
   <div class="knowledgeSummary">
-    <div class="title">
-      <div>
-        <h1>代码分享</h1>
-      </div>
-      <div>
-        <p>善于分享，善于进步</p>
-      </div>
-    </div>
+    <Title title="代码分享" subTitle="善于分享，善于进步" />
     <template v-if="articles.toString()">
       <card-container :articles="articles"></card-container>
       <div class="demo-pagination-block">
@@ -25,12 +18,11 @@
 </template>
 
 <script setup lang="ts">
-import CardContainer from "@/components/card/CardContainer.vue";
 import getServer from "@/requset/server/getServer";
 import { ref } from "vue";
 
 const articles = ref([]);
-const currentPage = ref(1);
+const currentPage = ref<number>(1);
 const pageSize = ref(9);
 const totalAticlesPages = ref(0);
 async function fetch() {
@@ -59,19 +51,6 @@ const handleCurrentChange = () => {
   .demo-pagination-block {
     margin-top: 20px;
     margin-bottom: 50px;
-  }
-  .title {
-    text-align: center;
-    margin: 20px;
-    padding-bottom: 20px;
-    padding-left: 150px;
-    padding-right: 150px;
-    border-bottom: 1px rgba(255, 0, 0, 0.4) solid;
-    p {
-      margin-top: 10px;
-      margin-left: 300px;
-      color: rgba(0, 0, 0, 0.5);
-    }
   }
   .noData {
     margin-top: 120px;

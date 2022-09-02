@@ -19,7 +19,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import CommentCard from "./CommentCard.vue";
 import Release from "@/components/comment/Release";
 

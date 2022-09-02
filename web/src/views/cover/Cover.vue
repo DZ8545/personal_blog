@@ -56,7 +56,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import getPoetry from "@/requset/poetry/getPoetry";
 import { ref } from "vue";
 const poetry = ref([]);

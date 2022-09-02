@@ -1,10 +1,17 @@
 <template>
   <div class="cardContainer">
-    <card v-for="item in articles" :key="item" :item="item" class="card"></card>
+    <TransitionGroup name="cardsAnimate" mode="out-in">
+      <card
+        v-for="item in articles"
+        :key="item"
+        :item="item"
+        class="card"
+      ></card>
+    </TransitionGroup>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import Card from "@/components/card/Card";
 // eslint-disable-next-line no-undef
 defineProps(["articles"]);
@@ -16,8 +23,18 @@ defineProps(["articles"]);
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
   .card {
     margin: 10px;
+  }
+  .cardsAnimate-enter-active {
+    transition: all 2s ease;
+  }
+  .cardsAnimate-enter-from,
+  .cardsAnimate-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
   }
 }
 </style>

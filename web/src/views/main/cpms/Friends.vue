@@ -51,7 +51,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import getServer from "@/requset/server/getServer";
 import { ref } from "vue";
 const friends = ref([]);

@@ -1,6 +1,6 @@
 <template>
-  <div class="main" id="x">
-    <div class="panel" id="y">
+  <div class="main" ref="mainEl">
+    <div class="panel" ref="panelEl">
       <div class="sun"></div>
       <div class="birds">
         <div class="bird" style="left: 150px; top: 45px"></div>
@@ -10,9 +10,6 @@
         <div class="bird" style="left: 110px; top: 60px"></div>
       </div>
       <div class="title">
-        <!--        <router-link to="/" custom v-slot="props">-->
-        <!--          <span class="b1" @click="props.navigate">古月小站</span>-->
-        <!--        </router-link>-->
         <span class="b1">古月小站</span>
       </div>
       <div class="option">
@@ -125,12 +122,7 @@
         direction="rtl"
         size="250px"
       >
-        <el-menu
-          class="el-menu-vertical-demo"
-          :collapse="isCollapse"
-          @open="handleOpen"
-          @close="handleClose"
-        >
+        <el-menu class="el-menu-vertical-demo">
           <el-menu-item index="1">
             <router-link to="/" custom v-slot="props">
               <span @click="props.navigate">
@@ -228,7 +220,7 @@
       </el-drawer>
     </div>
     <router-view class="view"></router-view>
-    <div class="toTop">
+    <div class="toTop" ref="toTopEl">
       <i
         class="iconfont icon-huidaodingbu"
         style="font-size: 30px; color: #feb8b0"
@@ -238,30 +230,31 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 import { onMounted } from "vue";
 import _ from "lodash";
 const table = ref(false);
+const mainEl = ref<HTMLElement>();
+const panelEl = ref<HTMLElement>();
+const toTopEl = ref<HTMLElement>();
 const router = useRouter();
 function onSubmit(event) {
   router.push(`/main/search/${event.target.value}`);
 }
 
 onMounted(() => {
-  const x = document.getElementById("x");
-  const y = document.getElementById("y");
-  const toTop = document.getElementsByClassName("toTop")[0];
-  const top = x.offsetTop;
+  const top = mainEl.value!.offsetTop;
   fn();
   document.addEventListener("scroll", _.debounce(fn, 500));
   function fn() {
     if (
-      x.getBoundingClientRect().top < top - y.clientHeight - 5 &&
-      x.getBoundingClientRect().top > 0
+      mainEl.value!.getBoundingClientRect().top <
+        top - panelEl.value!.clientHeight - 5 &&
+      mainEl.value!.getBoundingClientRect().top > 0
     ) {
-      toTop.style.display = "block";
+      toTopEl.value!.style.display = "block";
       window.scrollTo({
         top: top,
         behavior: "smooth",
@@ -280,6 +273,7 @@ function toTop() {
 <style scoped lang="less">
 .main {
   width: 100%;
+  min-height: 100vh;
   background-image: linear-gradient(
       90deg,
       rgba(50, 0, 0, 0.05) 3%,

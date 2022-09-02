@@ -59,7 +59,7 @@ async function registered() {
       signal: input5.value,
       identityNumber: input6.value,
     });
-    if (res.code === "success") {
+    if (res.data === "success") {
       ElMessage.success("注册成功");
     } else {
       ElMessage.error("验证失败");

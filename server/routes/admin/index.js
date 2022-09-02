@@ -204,7 +204,6 @@ module.exports = (app) => {
         parent: undefined,
       })
       .sort({ _id: -1 });
-    // const items = await Comment.find({ article: req.params.id, parent: "" });
     res.send(items);
   });
   //获取子评论
@@ -262,7 +261,6 @@ module.exports = (app) => {
     });
   });
 
-
   //小游戏排行榜
   const Rank = require("../../models/rank.js");
   router.post("/ranks", async (req, res) => {
@@ -286,37 +284,37 @@ module.exports = (app) => {
 
   const Users = require("../../models/users.js");
   router.post("/users", async (req, res) => {
-    const info = req.body
-    if(info.signal==='暗号'&&info.identityNumber==='5472'){
+    const info = req.body;
+    if (info.signal === "暗号" && info.identityNumber === "5472") {
       await Users.create(req.body);
-      res.send('success');
-    }else{
-      res.send('fail')
+      res.send("success");
+    } else {
+      res.send("fail");
     }
   });
   router.get("/users/:info", async (req, res) => {
-    const info = req.params.info.split(',')
-    const items = [...await Users.find({ account: info[0] })]
-    for(const item of items){
-      if(item.password===info[1]){
-        const {setToken} = require('../../utils/useJwt')
+    const info = req.params.info.split(",");
+    const items = [...(await Users.find({ account: info[0] }))];
+    for (const item of items) {
+      if (item.password === info[1]) {
+        const { setToken } = require("../../utils/useJwt");
         return res.send({
           code: 200,
           data: {
-            message: '登录成功！',
+            message: "登录成功！",
             token: setToken(info[0]),
             flag: true,
-            account:item.account,
-            password:item.password
-          }
-        })
+            account: item.account,
+            password: item.password,
+          },
+        });
       }
     }
-    return res.send('fail')
+    return res.send("fail");
   });
   router.get("/userId/:id", async (req, res) => {
     const items = await Users.findById(req.params.id);
-    res.send(items)
+    res.send(items);
   });
   router.get("/allUsers", async (req, res) => {
     const items = await Users.find();
@@ -339,8 +337,8 @@ module.exports = (app) => {
   const upload = multer({ dest: __dirname + "../../../uploads" });
   app.post("/admin/api/upload", upload.single("file"), async (req, res) => {
     const file = req.file;
-    file.url = `http://localhost:3000/uploads/${file.filename}`;
-    // file.url = `http://www.dz8545.xyz/uploads/${file.filename}`;
+    // file.url = `http://localhost:3000/uploads/${file.filename}`;
+    file.url = `http://www.dz8545.xyz/uploads/${file.filename}`;
     res.send(file);
   });
 };

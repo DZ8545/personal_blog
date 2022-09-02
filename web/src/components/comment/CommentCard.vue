@@ -37,7 +37,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 //$store.state.comment.childrenCommentList
 import { ref } from "vue";
 import Release from "@/components/comment/Release";

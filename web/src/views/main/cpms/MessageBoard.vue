@@ -1,14 +1,6 @@
 <template>
   <div class="messageBoard">
-    <div class="title">
-      <div>
-        <h1>留言板</h1>
-      </div>
-      <div>
-        <!--        <p>海内存知己，天涯共比邻</p>-->
-        <p>畅所欲言</p>
-      </div>
-    </div>
+    <Title title="留言板" subTitle="畅所欲言" />
     <div class="box1">
       <p
         style="
@@ -35,7 +27,6 @@
 </template>
 
 <script setup lang="ts">
-import Comment from "@/components/comment/Comment.vue";
 function toTop() {
   window.scrollTo({
     top: 0,
@@ -58,27 +49,11 @@ function toTop() {
   .box1 {
     width: 700px;
   }
-  .title {
-    text-align: center;
-    margin: 20px;
-    padding-bottom: 20px;
-    padding-left: 150px;
-    padding-right: 150px;
-    border-bottom: 1px rgba(255, 0, 0, 0.4) solid;
-    p {
-      margin-top: 10px;
-      margin-left: 300px;
-      color: rgba(0, 0, 0, 0.5);
-    }
-  }
 }
 @media screen and (max-width: 900px) {
   .messageBoard {
     .box1 {
       width: 350px;
-    }
-    .title {
-      padding: 0;
     }
   }
 }

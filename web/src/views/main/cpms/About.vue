@@ -34,7 +34,7 @@
       </el-card>
     </div>
     <div class="right">
-      <myMenu class="myMenu" :menus="menus"></myMenu>
+      <Menu :menus="menus" class="myMenu"></Menu>
       <div class="title">
         <div style="width: 400px">
           <h1>关于</h1>
@@ -48,30 +48,28 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import getServer from "@/requset/server/getServer";
-import Comment from "@/components/comment/Comment.vue";
 import { marked } from "marked";
 import { useRoute } from "vue-router";
-import myMenu from "@/components/menu/Menu";
 
 const route = useRoute();
 const id = route.params.id;
-const text = ref(null);
+const text = ref<string>("");
 let time = 0;
 const day = ref(0);
 const h = ref(0);
 const m = ref(0);
 const s = ref(0);
-const article = ref([]);
+const article = ref<object>({});
 
 async function fetch() {
   const res = await getServer.get(`/article/${id}`);
   article.value = res.data;
   text.value = marked(article.value.body);
 }
-let catalogues = [];
+let catalogues: RegExpMatchArray[] = [];
 const menus = ref([]);
 fetch().then(() => {
   catalogues = [...text.value.matchAll(/<h[12].*>.*<\/h[12].*>/g)];
@@ -95,11 +93,11 @@ fetch().then(() => {
 });
 setInterval(() => {
   time = Date.now();
-  time = parseInt((time - 1649466024000) / 1000);
-  day.value = parseInt(time / 3600 / 24);
-  h.value = parseInt((time % (3600 * 24)) / 3600);
-  m.value = parseInt((time % 3600) / 60);
-  s.value = parseInt(time % 60);
+  time = Math.floor((time - 1649466024000) / 1000);
+  day.value = Math.floor(time / 3600 / 24);
+  h.value = Math.floor((time % (3600 * 24)) / 3600);
+  m.value = Math.floor((time % 3600) / 60);
+  s.value = Math.floor(time % 60);
 }, 1000);
 </script>
 

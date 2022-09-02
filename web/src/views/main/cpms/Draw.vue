@@ -77,13 +77,12 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from "vue";
 const w = ref(1); //笔粗细和橡皮大小
 const k = ref("画笔"); //画笔种类
 const color = ref("rgba(0, 0, 0)");
-let canvas = null,
-  ctx = null;
+let canvas, ctx;
 onMounted(() => {
   canvas = document.querySelector("canvas");
   ctx = canvas.getContext("2d");

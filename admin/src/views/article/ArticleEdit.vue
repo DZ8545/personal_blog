@@ -65,6 +65,7 @@ const model = ref({
   body: "",
   time: 0,
 });
+
 const toolbars = ref({
   bold: true, // 粗体
   italic: true, // 斜体

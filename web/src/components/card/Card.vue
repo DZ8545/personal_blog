@@ -9,10 +9,6 @@
           :src="'https://www.dmoe.cc/random.php?time=' + Math.random() * 10000"
           alt=""
         />
-        <!--        <img src="https://tenapi.cn/acg">-->
-
-        <!--        樱花：http://www.dmoe.cc/random.php-->
-        <!--        一叶三秋：https://api.ghser.com/random/api.php-->
       </div>
       <div class="description">
         <span style="width: 250px">{{ item.description }}</span>
@@ -64,7 +60,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 

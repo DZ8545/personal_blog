@@ -1,13 +1,6 @@
 <template>
   <div class="snakeGame">
-    <div class="title">
-      <div>
-        <h1>贪吃蛇</h1>
-      </div>
-      <div>
-        <p>鼠鼠那么可爱，一定得多吃点！</p>
-      </div>
-    </div>
+    <Title title="贪吃蛇" subTitle="鼠鼠那么可爱，一定得多吃点！" />
     <div class="content">
       <div class="left">
         <el-card class="box-card">
@@ -96,7 +89,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { nextTick, ref, watchEffect } from "vue";
 import getServer from "@/requset/server/getServer";
 const name_ = ref("");
@@ -109,13 +102,18 @@ const w2 = ref(false); //鼠鼠不会消失
 const w3 = ref(false); //碰到墙不会死
 const snakeSpeed = ref(100); //蛇的速度
 const foodSpeed = ref(5000); //食物出现的速度
-let foodTimer = null;
-let timer = null;
-let map = null;
+let foodTimer;
+let timer;
+let map;
 let x = 0;
 let y = 0;
 //food
 class Food {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  element: HTMLElement;
   constructor() {
     this.x = 0;
     this.y = 0;
@@ -139,6 +137,9 @@ class Food {
 }
 //map
 class Map {
+  width: number;
+  height: number;
+  element: HTMLElement;
   constructor() {
     this.width = 600;
     this.height = 420;
@@ -153,6 +154,11 @@ class Map {
 }
 //snake
 class Snake {
+  width: number;
+  height: number;
+  body: [{ x: number; y: number }];
+  elements: [HTMLDivElement];
+  direction: string;
   constructor() {
     this.width = 15;
     this.height = 15;
@@ -426,22 +432,9 @@ fetch();
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  .title {
-    text-align: center;
-    margin: 20px;
-    padding-bottom: 20px;
-    padding-left: 150px;
-    padding-right: 150px;
-    border-bottom: 1px rgba(255, 0, 0, 0.4) solid;
-    p {
-      margin-top: 10px;
-      margin-left: 300px;
-      color: rgba(0, 0, 0, 0.5);
-    }
-  }
   .content {
     display: flex;
-    ::v-deep #game {
+    :deep #game {
       position: relative;
       margin: 0 30px;
       height: 420px;
@@ -514,16 +507,6 @@ fetch();
     color: rgba(0, 0, 0, 0.5);
     margin-top: 15px;
     margin-bottom: 30px;
-  }
-}
-@media screen and (max-width: 900px) {
-  .snakeGame {
-    .title {
-      padding: 0;
-      p {
-        margin: 0;
-      }
-    }
   }
 }
 </style>

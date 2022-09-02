@@ -24,14 +24,11 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (data) => {
     // 响应请求成功
-    setTimeout(() => {
-      isLoading.value = false;
-    }, 500);
+    isLoading.value = false;
     return data;
   },
   (err) => {
     // 响应请求失败
-
     setTimeout(() => {
       isLoading.value = false;
     }, 500);

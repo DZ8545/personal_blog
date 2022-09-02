@@ -42,7 +42,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import getqq from "@/requset/qq/getqq";
 
@@ -153,7 +153,7 @@ function qqCheck() {
 function save() {
   comment.value.parent = props.parentId || "";
   comment.value.recipient = props.name;
-  comment.value.article = route.params.id;
+  comment.value.article = route.params.id as string;
   comment.value.time = new Date(Date.now()).toLocaleString();
   comment.value.remark = words.value;
   if (!comment.value.name || !comment.value.remark) {
@@ -210,7 +210,7 @@ function save() {
       justify-content: center;
       margin-top: 10px;
       height: 200px;
-      ::v-deep .el-textarea__inner {
+      :deep .el-textarea__inner {
         outline: none !important;
         background-color: inherit;
         height: 180px;

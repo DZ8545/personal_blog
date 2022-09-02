@@ -1,8 +1,6 @@
 <template>
   <div class="sudoku">
-    <div class="title">
-      <h1>数独</h1>
-    </div>
+    <Title title="数独" />
     <div class="content">
       <div class="box1">
         <div class="box_grid">
@@ -236,9 +234,6 @@ function finish() {
 
 <style scoped lang="less">
 .sudoku {
-  .title {
-    text-align: center;
-  }
   .content {
     display: flex;
     justify-content: center;

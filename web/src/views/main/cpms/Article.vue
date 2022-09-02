@@ -1,7 +1,7 @@
 <template>
   <div class="article">
     <div class="content">
-      <myMenu :menus="menus" class="myMenu"></myMenu>
+      <Menu :menus="menus" class="myMenu"></Menu>
       <div class="head">
         <div class="title">
           <h2>{{ article.title }}</h2>
@@ -40,20 +40,19 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, nextTick } from "vue";
 import getServer from "@/requset/server/getServer";
 import { useRoute } from "vue-router";
 import { marked } from "marked";
 import { useStore } from "vuex";
-import Comment from "@/components/comment/Comment";
 import hljs from "highlight.js";
-import myMenu from "@/components/menu/Menu";
+import Menu from "@/components/menu/Menu.vue";
 
 const route = useRoute();
 const id = route.params.id;
 const article = ref([]);
-const text = ref(null);
+const text = ref<string>("");
 const store = useStore();
 
 const catalogues = ref([]);
@@ -75,7 +74,6 @@ marked.setOptions({
 async function fetch() {
   const res = await getServer.get(`/article/${id}`);
   article.value = res.data;
-  // article.value.body.replaceAll(" src=", " data-src=");
   text.value = marked.parse(article.value.body).replace(/src/g, "data-src"); // 将markdown内容解析
   //图片懒加载
   nextTick(() => {
@@ -84,7 +82,7 @@ async function fetch() {
       entirs.forEach((item) => {
         if (item.isIntersecting) {
           const img = item.target;
-          const src = img.getAttribute("data-src");
+          const src: string = img.getAttribute("data-src") as string;
           img.setAttribute("src", src);
           observer.unobserve(img);
         }
@@ -185,7 +183,7 @@ store.dispatch("comment/getCommentNumber", id);
       padding-bottom: 30px;
       border-bottom: 1px dotted rgba(0, 0, 0, 0.8);
     }
-    ::v-deep .body {
+    :deep .body {
       > pre > code {
         border-radius: 10px;
       }

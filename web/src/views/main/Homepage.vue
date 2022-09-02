@@ -5,7 +5,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import myMain from "@/views/main/Main";
 import Cover from "@/views/cover/Cover";
 </script>

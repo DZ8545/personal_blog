@@ -14,7 +14,6 @@
 </template>
 
 <script setup lang="ts">
-import CardContainer from "@/components/card/CardContainer.vue";
 import getServer from "@/requset/server/getServer";
 import { ref } from "vue";
 

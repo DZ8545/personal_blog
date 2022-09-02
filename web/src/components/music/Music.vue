@@ -44,15 +44,22 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import getMusic from "@/requset/music/getMusic";
 
 const isActive = ref(false);
-const musics = ref([]);
+const musics = ref<musicsType>([]);
 const currentIndex = ref(-1);
 const musicPlayer = ref(null);
 const flag = ref(false);
+type musicsType = [
+  {
+    url: string;
+    name: string;
+    artistsname: string;
+  }
+];
 async function fetch() {
   const res = await getMusic();
   const item = {

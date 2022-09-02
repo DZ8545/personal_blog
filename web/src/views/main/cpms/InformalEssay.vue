@@ -1,13 +1,6 @@
 <template>
   <div class="studyNote">
-    <div class="title">
-      <div>
-        <h1>随笔</h1>
-      </div>
-      <div>
-        <p>记录生活，记录更美的你</p>
-      </div>
-    </div>
+    <Title title="随笔" subTitle="记录生活，记录更美的你" />
     <template v-if="articles.toString()">
       <card-container :articles="articles"></card-container>
       <div class="demo-pagination-block">
@@ -25,7 +18,6 @@
 </template>
 
 <script setup lang="ts">
-import CardContainer from "@/components/card/CardContainer.vue";
 import getServer from "@/requset/server/getServer";
 import { ref } from "vue";
 
@@ -59,19 +51,6 @@ const handleCurrentChange = () => {
   .demo-pagination-block {
     margin-top: 20px;
     margin-bottom: 50px;
-  }
-  .title {
-    text-align: center;
-    margin: 20px;
-    padding-bottom: 20px;
-    padding-left: 150px;
-    padding-right: 150px;
-    border-bottom: 1px rgba(255, 0, 0, 0.4) solid;
-    p {
-      margin-top: 10px;
-      margin-left: 300px;
-      color: rgba(0, 0, 0, 0.5);
-    }
   }
   .noData {
     margin-top: 120px;
