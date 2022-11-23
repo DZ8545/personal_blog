@@ -32,6 +32,7 @@ declare module 'vue' {
     ElTree: typeof import('element-plus/es')['ElTree']
     Menu: typeof import('./src/components/menu/Menu.vue')['default']
     Music: typeof import('./src/components/music/Music.vue')['default']
+    Panel: typeof import('./src/components/panel/index.vue')['default']
     Release: typeof import('./src/components/comment/Release.vue')['default']
     Title: typeof import('./src/components/title/Title.vue')['default']
   }

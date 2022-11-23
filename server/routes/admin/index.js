@@ -105,7 +105,7 @@ module.exports = (app) => {
       default:
         break;
     }
-    res.send(items.length);
+    if (items) return res.send(items.length);
   });
   //获取知识总结分类的文章
   router.get("/articlesOfKnowledgeSummary/:skip", async (req, res) => {

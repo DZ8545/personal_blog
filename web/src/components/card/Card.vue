@@ -37,22 +37,22 @@
           <i
             class="iconfont icon-biji"
             v-if="item.kind === '6242b4f997ca3f92fa75203a'"
-            @click="$router.push('/main/informalEssay')"
+            @click="$router.push('/main/articleType/informalEssay')"
           ></i>
           <i
             class="iconfont icon-zongjie"
             v-if="item.kind === '6242b4eb97ca3f92fa752036'"
-            @click="$router.push('/main/knowledgeSummary')"
+            @click="$router.push('/main/articleType/knowledgeSummary')"
           ></i>
           <i
             class="iconfont icon-jilu"
             v-if="item.kind === '624305226f1943d5f6f9dfc9'"
-            @click="$router.push('/main/studyNote')"
+            @click="$router.push('/main/articleType/studyNote')"
           ></i>
           <i
             class="iconfont icon-fenxiang"
             v-if="item.kind === '6242b4f497ca3f92fa752038'"
-            @click="$router.push('/main/codeSharing')"
+            @click="$router.push('/main/articleType/codeSharing')"
           ></i>
         </div>
       </el-tooltip>

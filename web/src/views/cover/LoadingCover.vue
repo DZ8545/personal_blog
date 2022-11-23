@@ -1,7 +1,6 @@
 <template>
   <div class="loadingCover" v-show="isLoading">
-    fasdfsd
-    <div class="loading"></div>
+    <div class="loading" />
     <div style="color: white">正努力为您加载...</div>
   </div>
 </template>

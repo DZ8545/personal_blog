@@ -1,41 +1,32 @@
 <template>
-  <div class="article">
-    <div class="content">
-      <Menu :menus="menus" class="myMenu"></Menu>
-      <div class="head">
-        <div class="title">
-          <h2>{{ article.title }}</h2>
-        </div>
-        <div class="other">
-          <div class="date">
-            <i class="iconfont icon-rili"></i>
-            {{ new Date(article.time).toLocaleDateString() }}
-          </div>
-          <div class="look">
-            <i class="iconfont icon-liulan"></i>
-            {{ article.NumberOfVisitors }}
-          </div>
-          <div class="taol">
-            <i class="iconfont icon-a-taolunluntan"></i>
-            {{ $store.state.comment.commentNumber }}
-          </div>
-          <div class="time">
-            {{ new Date(article.time).toLocaleTimeString() }}
-          </div>
-        </div>
+  <div class="content">
+    <Menu :menus="menus" class="myMenu"></Menu>
+    <div class="head">
+      <div class="title">
+        <h2>{{ article.title }}</h2>
       </div>
-      <div class="body" v-html="text"></div>
-      <div class="foot">
-        <comment></comment>
-        <div style="height: 200px"></div>
+      <div class="other">
+        <div class="date">
+          <i class="iconfont icon-rili"></i>
+          {{ new Date(article.time).toLocaleDateString() }}
+        </div>
+        <div class="look">
+          <i class="iconfont icon-liulan"></i>
+          {{ article.NumberOfVisitors }}
+        </div>
+        <div class="taol">
+          <i class="iconfont icon-a-taolunluntan"></i>
+          {{ $store.state.comment.commentNumber }}
+        </div>
+        <div class="time">
+          {{ new Date(article.time).toLocaleTimeString() }}
+        </div>
       </div>
     </div>
-    <div class="toTop">
-      <i
-        class="iconfont icon-huidaodingbu"
-        style="font-size: 30px; color: #feb8b0"
-        @click="toTop"
-      ></i>
+    <div class="body" v-html="text"></div>
+    <div class="foot">
+      <comment></comment>
+      <div style="height: 200px"></div>
     </div>
   </div>
 </template>
@@ -54,7 +45,6 @@ const id = route.params.id;
 const article = ref([]);
 const text = ref<string>("");
 const store = useStore();
-
 const catalogues = ref([]);
 marked.setOptions({
   renderer: new marked.Renderer(),
@@ -96,7 +86,6 @@ async function fetch() {
 const menus = ref([]);
 fetch().then(() => {
   catalogues.value = [...text.value.matchAll(/<h[12].*>.*<\/h[12].*>/g)];
-  // console.log(catalogues.value[0][0].split("<")[1].split(">")[1]);
   let i = -1;
   for (const item of catalogues.value) {
     const menuItem = {
@@ -114,144 +103,137 @@ fetch().then(() => {
     }
   }
 });
-function toTop() {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
-}
 store.dispatch("comment/getCommentNumber", id);
 </script>
 
 <style scoped lang="less">
-.article {
-  display: flex;
+.content {
+  width: 800px;
+  margin: 0 auto;
   .myMenu {
     position: fixed;
-    top: 50%;
+    top: 110px;
     max-width: 200px;
-    transform: translateY(-54%);
     margin-left: 800px;
-    //background-color: white;
   }
-  .content {
-    width: 800px;
-    margin: 0 auto;
-    //background-color: white;
-    .head {
+  .head {
+    position: relative;
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.8);
+    .title {
+      padding: 10px;
+    }
+    .other {
+      margin-top: 10px;
+      margin-left: 30px;
+      display: flex;
+      flex-wrap: nowrap;
       position: relative;
-      border-bottom: 1px dotted rgba(0, 0, 0, 0.8);
-      .title {
-        padding: 10px;
+      i {
+        color: rgba(0, 0, 0, 0.4);
       }
-      .other {
-        margin-top: 10px;
-        margin-left: 30px;
-        display: flex;
-        flex-wrap: nowrap;
-        position: relative;
+      .look {
         i {
-          color: rgba(0, 0, 0, 0.4);
+          font-size: 22px;
+          margin-bottom: -3px;
         }
-        .look {
-          i {
-            font-size: 22px;
-            margin-bottom: -3px;
-          }
-          margin-left: 10px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        .taol {
-          margin-left: 10px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        .time {
-          color: rgba(0, 0, 0, 0.5);
-          position: absolute;
-          right: 15px;
-          font-size: 12px;
-          bottom: 3px;
-        }
+        margin-left: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .taol {
+        margin-left: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .time {
+        color: rgba(0, 0, 0, 0.5);
+        position: absolute;
+        right: 15px;
+        font-size: 12px;
+        bottom: 3px;
       }
     }
-    .body {
-      margin-top: 20px;
-      padding-bottom: 30px;
-      border-bottom: 1px dotted rgba(0, 0, 0, 0.8);
+  }
+  .body {
+    margin-top: 20px;
+    padding-bottom: 30px;
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.8);
+  }
+  :deep(.body) {
+    > pre > code {
+      border-radius: 10px;
     }
-    :deep .body {
-      > pre > code {
-        border-radius: 10px;
+    > p {
+      margin: 10px;
+      text-indent: 2em;
+      font-size: 18px;
+      color: rgba(0, 0, 0, 0.7);
+    }
+    h1 {
+      padding: 5px;
+      font-size: 20px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      margin-bottom: 10px;
+      background-color: #feb8b0;
+      opacity: 0.5;
+      border-radius: 10px;
+    }
+    h1::before {
+      content: "#";
+      font-size: 20px;
+      color: red;
+    }
+    h2 {
+      padding: 5px;
+      font-size: 19px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      margin-bottom: 10px;
+      background-color: #feb8b0;
+      opacity: 0.5;
+      border-radius: 10px;
+    }
+    h2::before {
+      content: "##";
+      font-size: 19px;
+      color: red;
+    }
+    ul {
+      margin-left: 80px;
+      > li {
+        margin: 5px 0;
+        font-size: 17px;
+      }
+    }
+    img {
+      max-width: 600px;
+    }
+    @media screen and (max-width: 900px) {
+      font-size: 1rem;
+      img {
+        max-width: 350px;
+      }
+      ul {
+        margin-left: 30px;
+        > li {
+          margin: 5px 0;
+        }
       }
       > p {
         margin: 10px;
-        text-indent: 2em;
+        text-indent: 0;
         font-size: 18px;
         color: rgba(0, 0, 0, 0.7);
       }
-      h1 {
-        padding: 5px;
-        font-size: 20px;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        margin-bottom: 10px;
-        background-color: #feb8b0;
-        opacity: 0.5;
-        border-radius: 10px;
-      }
-      h1::before {
-        content: "#";
-        font-size: 20px;
-        color: red;
-      }
-      h2 {
-        padding: 5px;
-        font-size: 19px;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        margin-bottom: 10px;
-        background-color: #feb8b0;
-        opacity: 0.5;
-        border-radius: 10px;
-      }
-      h2::before {
-        content: "##";
-        font-size: 19px;
-        color: red;
-      }
-      ul {
-        margin-left: 80px;
-        > li {
-          margin: 5px 0;
-          font-size: 17px;
-        }
-      }
-      img {
-        max-width: 600px;
-      }
-      @media screen and (max-width: 900px) {
-        img {
-          max-width: 350px;
-        }
-      }
     }
   }
+}
 
-  .toTop {
-    position: fixed;
-    right: 80px;
-    bottom: 100px;
-  }
-  @media screen and (max-width: 900px) {
-    .content {
-      max-width: 100%;
-    }
-    .toTop {
-      right: 5px;
-      bottom: 50px;
-    }
+@media screen and (max-width: 1200px) {
+  .content {
+    margin: 0;
+    max-width: 100%;
   }
 }
 </style>

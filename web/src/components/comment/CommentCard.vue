@@ -18,7 +18,7 @@
         <span>{{ item.remark }}</span>
       </div>
       <div class="reply" v-if="isReplyExistence">
-        <button class="replyBtn" @click="replyClick">回复</button>
+        <span class="replyBtn" @click="replyClick">回复</span>
       </div>
 
       <release
@@ -38,13 +38,11 @@
 </template>
 
 <script setup lang="ts">
-//$store.state.comment.childrenCommentList
 import { ref } from "vue";
 import Release from "@/components/comment/Release";
 import getServer from "@/requset/server/getServer";
 // eslint-disable-next-line no-undef
 const props = defineProps(["item"]);
-
 const isExistence = ref(false);
 const isReplyExistence = ref(true);
 const children = ref([]);
@@ -62,7 +60,6 @@ async function fetchChildren() {
 }
 if (!props.item.parent) {
   fetchChildren();
-  // store.dispatch("comment/getChildrenCommentList", props.item._id);
 }
 </script>
 
@@ -94,7 +91,7 @@ if (!props.item.parent) {
     .remark {
       width: 100%;
       margin-top: 8px;
-      overflow-y: auto;
+      white-space: pre-wrap;
     }
     .reply {
       display: flex;
@@ -103,9 +100,7 @@ if (!props.item.parent) {
         color: rgba(0, 0, 0, 0.5);
         border-color: rgba(0, 0, 0, 0.2);
         background-color: inherit;
-      }
-      .replyBtn:hover {
-        cursor: url(../../assets/cursor/keHand.cur), default !important;
+        cursor: url(@/assets/cursor/keHand.cur), default !important;
       }
     }
   }
@@ -115,7 +110,9 @@ if (!props.item.parent) {
 }
 @media screen and (max-width: 900px) {
   .commentCard {
-    max-width: 400px;
+    box-sizing: border-box;
+    padding: 10px;
+    width: 100%;
     margin-top: 5px;
     .headImg {
       width: 25px;

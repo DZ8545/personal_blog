@@ -16,24 +16,10 @@
       </p>
       <comment></comment>
     </div>
-    <div class="toTop">
-      <i
-        class="iconfont icon-huidaodingbu"
-        style="font-size: 30px; color: #feb8b0"
-        @click="toTop"
-      ></i>
-    </div>
   </div>
 </template>
 
-<script setup lang="ts">
-function toTop() {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
-}
-</script>
+<script setup lang="ts"></script>
 
 <style scoped lang="less">
 .messageBoard {
@@ -41,11 +27,6 @@ function toTop() {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  .toTop {
-    position: fixed;
-    right: 80px;
-    bottom: 100px;
-  }
   .box1 {
     width: 700px;
   }

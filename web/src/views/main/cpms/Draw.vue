@@ -7,7 +7,7 @@
     </div>
     <div class="box1">
       <div class="left">
-        <canvas width="600" height="400"></canvas>
+        <canvas width="600" height="400" ref="canvas"></canvas>
       </div>
       <div class="right">
         <el-card class="card">
@@ -81,21 +81,21 @@
 import { ref, onMounted } from "vue";
 const w = ref(1); //笔粗细和橡皮大小
 const k = ref("画笔"); //画笔种类
+const canvas = ref<HTMLCanvasElement>(null, null);
 const color = ref("rgba(0, 0, 0)");
-let canvas, ctx;
+let ctx;
 onMounted(() => {
-  canvas = document.querySelector("canvas");
-  ctx = canvas.getContext("2d");
+  ctx = canvas.value.getContext("2d");
   document.onmousedown = (event) => {
     ctx.beginPath();
     ctx.lineWidth = w.value;
     ctx.strokeStyle = color.value;
-    const beginX = event.clientX - canvas.offsetLeft;
-    const beginY = event.clientY - canvas.offsetTop;
+    const beginX = event.clientX - canvas.value.offsetLeft;
+    const beginY = event.clientY - canvas.value.offsetTop;
     ctx.moveTo(beginX, beginY);
     document.onmousemove = (event) => {
-      const endX = event.clientX - canvas.offsetLeft;
-      const endY = event.clientY - canvas.offsetTop;
+      const endX = event.clientX - canvas.value.offsetLeft;
+      const endY = event.clientY - canvas.value.offsetTop;
       switch (k.value) {
         case "画笔":
           ctx.lineTo(endX, endY);
@@ -126,7 +126,7 @@ function clear() {
 }
 function saveImg() {
   if (ctx) {
-    const url = canvas.toDataURL();
+    const url = canvas.value.toDataURL();
     const a = document.createElement("a");
     a.download = "img";
     a.href = url;
@@ -139,13 +139,11 @@ function saveImg() {
 
 <style scoped lang="less">
 .draw {
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   .box1 {
-    width: 700px;
     display: flex;
     .left {
       background-color: white;

@@ -1,12 +1,15 @@
 <template>
   <div class="cover">
     <div class="poetry">
-      <div class="sentence" v-for="(i, index1) of poetry" :key="index1">
+      <div class="sentence" v-for="(sentence, index1) of poetry" :key="index1">
         <transition-group name="list">
-          <template v-for="(item, index2) in i" :key="index2">
-            <div v-show="flags[index2 + count[index1]]">
+          <template v-for="(item, index2) in sentence" :key="index2">
+            <span
+              v-show="flags[index2 + count[index1]]"
+              :style="{ marginBottom: '2px' }"
+            >
               {{ item }}
-            </div>
+            </span>
           </template>
         </transition-group>
       </div>
@@ -20,10 +23,9 @@
       <div class="bird" style="left: 90px; top: 205px"></div>
     </div>
     <div class="content">
-      <div class="title">古月小站</div>
-      <div class="hello" style="height: 23.2px">{{ hello1.join("") }}</div>
+      <div class="hello">{{ hello1.join("") }}</div>
       <el-card class="box-card">
-        <div class="start">game start</div>
+        <div class="start">古月小站</div>
         <div class="links">
           <a href="https://github.com/DZ8545" target="_blank"
             ><i class="iconfont icon-github-fill"></i
@@ -40,7 +42,6 @@
           ></a>
         </div>
       </el-card>
-      <div class="coverCard"></div>
     </div>
     <div class="earth"></div>
     <div class="house">
@@ -59,35 +60,35 @@
 <script setup lang="ts">
 import getPoetry from "@/requset/poetry/getPoetry";
 import { ref } from "vue";
-const poetry = ref([]);
-const flags = ref([]);
-const count = ref([]);
-const s = ref(0);
-const hello = ref("欢迎你的到来，希望你能有所收获");
+const poetry = ref<string[]>([]);
+const flags = ref<boolean[]>([]);
+const count = ref<number[]>([]);
+let s = 0,
+  i = 0,
+  f = true;
+const hello = "欢迎你的到来，希望你能有所收获";
 getPoetry().then((res) => {
   poetry.value = res.data.content.split(/[。、？，！；]/);
   poetry.value[poetry.value.length - 1] = res.data.author;
   poetry.value.push(res.data.origin);
   for (let i = 0; i < poetry.value.length; i++) {
-    count.value[i] = s.value;
-    s.value = s.value + poetry.value[i].length;
+    count.value[i] = s;
+    s = s + poetry.value[i].length;
   }
   let i = 0;
   const timer = setInterval(() => {
     flags.value[i++] = true;
-    if (i === s.value) {
+    if (i === s) {
       clearInterval(timer);
     }
   }, 500);
 });
-const hello1 = ref([]);
-let i = 0,
-  f = true;
+const hello1 = ref<string[]>([]);
 setInterval(() => {
   if (f) {
-    hello1.value[i] = hello.value[i];
+    hello1.value[i] = hello[i];
     i++;
-    if (i === hello.value.length) {
+    if (i === hello.length) {
       f = false;
     }
   } else {
@@ -103,13 +104,13 @@ setInterval(() => {
 <style scoped lang="less">
 .cover {
   overflow: hidden;
-  width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   background: linear-gradient(#feb8b0, #fef9db);
   position: relative;
+  z-index: 999;
   .poetry {
     position: absolute;
     display: flex;
@@ -190,14 +191,10 @@ setInterval(() => {
         }
       }
     }
-    .title {
-      font-weight: bolder;
-      font-size: 30px;
-      margin-bottom: 10px;
-    }
     .hello {
       margin-bottom: 10px;
       font-size: 20px;
+      height: 23.2px;
     }
     .hello::after {
       content: "|";

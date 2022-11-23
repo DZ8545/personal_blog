@@ -6,32 +6,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <link rel="icon" href="<%= BASE_URL %>dz.ico" />
     <title>古月小站</title>
-    <style>
-      .word {
-        position: fixed;
-        z-index: 999;
-        animation: up 1s ease;
-      }
-      @keyframes up {
-        0% {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        20% {
-          transform: translateX(-10px);
-        }
-        60% {
-          transform: translateX(20px);
-        }
-        100% {
-          opacity: 0;
-          transform: translateY(-100px);
-        }
-      }
-      .circle{
-        
-      }
-    </style>
   </head>
   <body>
     <noscript>
@@ -43,28 +17,5 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
-    <script>
-      const body = document.getElementsByTagName("body")[0];
-      const colors = [
-        "#000000",
-        "#FF0000",
-        "#00FF00",
-        "#0000FF",
-        "#FFFF00",
-        "#00FFFF",
-        "#FF00FF",
-      ];
-      document.addEventListener("mouseup", (event) => {
-        const el = document.createElement("i");
-        el.setAttribute("class", "iconfont icon-aixin word");
-        el.style.left = event.clientX + "px";
-        el.style.top = event.clientY + "px";
-        el.style.color = colors[Math.floor(Math.random() * 7)];
-        body.appendChild(el);
-        setTimeout(() => {
-          body.removeChild(el);
-        }, 1000);
-      });
-    </script>
   </body>
 </html>

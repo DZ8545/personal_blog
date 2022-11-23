@@ -35,11 +35,7 @@
     </div>
     <div class="right">
       <Menu :menus="menus" class="myMenu"></Menu>
-      <div class="title">
-        <div style="width: 400px">
-          <h1>关于</h1>
-        </div>
-      </div>
+      <Title title="关于" />
       <div class="body" v-html="text"></div>
       <div class="box1">
         <comment></comment>
@@ -123,20 +119,7 @@ setInterval(() => {
       width: 700px;
       margin-bottom: 30px;
     }
-    .title {
-      text-align: center;
-      margin: 20px;
-      padding-bottom: 20px;
-      padding-left: 150px;
-      padding-right: 150px;
-      border-bottom: 1px rgba(255, 0, 0, 0.4) solid;
-      p {
-        margin-top: 10px;
-        margin-left: 300px;
-        color: rgba(0, 0, 0, 0.5);
-      }
-    }
-    ::v-deep .body {
+    :deep(.body) {
       p {
         margin: 10px;
         text-indent: 2em;
@@ -228,17 +211,14 @@ setInterval(() => {
     display: block;
     .right {
       margin-left: 0;
-      width: 100vw;
+      width: 100%;
       .box1 {
         width: 100vw;
-      }
-      .title {
-        padding: 0;
       }
     }
     .left {
       width: 90vw;
-      margin: 20px auto;
+      margin: 10px auto;
     }
   }
 }

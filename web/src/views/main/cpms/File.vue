@@ -62,13 +62,6 @@
         </el-timeline>
       </el-card>
     </div>
-    <div class="toTop">
-      <i
-        class="iconfont icon-huidaodingbu"
-        style="font-size: 30px; color: #feb8b0"
-        @click="toTop"
-      ></i>
-    </div>
   </div>
 </template>
 
@@ -100,12 +93,6 @@ fetchCommentsNumber();
 fetchArticlesNumber();
 fetchArticleViewNumber();
 fetch();
-function toTop() {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
-}
 </script>
 
 <style scoped lang="less">
@@ -114,11 +101,6 @@ function toTop() {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  .toTop {
-    position: fixed;
-    right: 80px;
-    bottom: 100px;
-  }
   .title {
     text-align: center;
     margin: 20px;
@@ -176,10 +158,6 @@ function toTop() {
 }
 @media screen and (max-width: 900px) {
   .file {
-    .toTop {
-      right: 10px;
-      bottom: 20px;
-    }
     .title {
       padding: 0;
       p {

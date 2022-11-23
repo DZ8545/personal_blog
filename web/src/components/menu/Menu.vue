@@ -43,10 +43,12 @@ const defaultProps = {
   .box-card {
     background-color: inherit;
     width: 300px;
-    .tree:hover {
-      .el-tree-node__content:hover {
-        cursor: url(../../assets/cursor/keHand.cur), default !important;
-        width: 600px;
+    .tree {
+      :deep(.el-tree-node__content) {
+        cursor: url(@/assets/cursor/keHand.cur), default !important;
+      }
+      :deep(.el-tree-node__label) {
+        cursor: url(@/assets/cursor/keHand.cur), default !important;
       }
     }
   }

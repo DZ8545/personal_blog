@@ -5,15 +5,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "Homepage",
-    // redirect: "/main",
     component: Homepage,
-    children: [
-      {
-        path: "/",
-        name: "home",
-        component: () => import("../views/main/cpms/Home.vue"),
-      },
-    ],
   },
   {
     path: "/main",
@@ -21,29 +13,14 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("../views/main/Main.vue"),
     children: [
       {
-        path: "/main/articles/:id",
+        path: "articleType/:type",
+        name: "articleType",
+        component: () => import("../views/main/cpms/ArtivleType.vue"),
+      },
+      {
+        path: "articles/:id",
         name: "article",
         component: () => import("../views/main/cpms/Article.vue"),
-      },
-      {
-        path: "knowledgeSummary",
-        name: "knowledgeSummary",
-        component: () => import("../views/main/cpms/KnowledgeSummary.vue"),
-      },
-      {
-        path: "studyNote",
-        name: "studyNote",
-        component: () => import("../views/main/cpms/StudyNote.vue"),
-      },
-      {
-        path: "codeSharing",
-        name: "codeSharing",
-        component: () => import("../views/main/cpms/CodeSharing.vue"),
-      },
-      {
-        path: "informalEssay",
-        name: "informalEssay",
-        component: () => import("../views/main/cpms/InformalEssay.vue"),
       },
       {
         path: "file",

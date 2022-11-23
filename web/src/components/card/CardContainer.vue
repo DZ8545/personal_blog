@@ -23,8 +23,6 @@ defineProps(["articles"]);
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  align-content: center;
   .card {
     margin: 10px;
   }

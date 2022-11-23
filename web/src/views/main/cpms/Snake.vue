@@ -434,7 +434,7 @@ fetch();
   justify-content: center;
   .content {
     display: flex;
-    :deep #game {
+    :deep(#game) {
       position: relative;
       margin: 0 30px;
       height: 420px;
